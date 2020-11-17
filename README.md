@@ -1,3 +1,13 @@
+# Proyecto Sistema gestor de Tickets
+
+Este es un proyecto dedicado a crear una solución a la problematica del manejo de tickets de servicio de las compañías.
+
+# Creadores
+
+Ariel de Jesús Fermín (ArielFJ)
+Rayni Nuñez Espino (RayniNE)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
