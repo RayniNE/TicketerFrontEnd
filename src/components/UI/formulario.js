@@ -18,13 +18,22 @@ export const Formulario = styled.form`
 
 export const Campo = styled.div`
     margin-bottom: 2rem;
-    display: flex;
     align-items: center;
 
     label{
-        flex: 0 0 150px;
-        font-size: 1.8rem;
+        /* flex: 0 0 150px; */
+        display: block;
+        font-size: 1.2rem;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        padding-bottom: 10px;
+    }
 
+    input{
+        display: block;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #000000;
     }
 
     input,

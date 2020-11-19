@@ -8,8 +8,8 @@ const ContenedorPadre = styled.header`
     height: 90px;
     float: right;
     -webkit-box-shadow: 10px 0px 16px -7px rgba(0,0,0,0.36);
--moz-box-shadow: 10px 0px 16px -7px rgba(0,0,0,0.36);
-box-shadow: 10px 0px 16px -7px rgba(0,0,0,0.36);
+    -moz-box-shadow: 10px 0px 16px -7px rgba(0,0,0,0.36);
+    box-shadow: 10px 0px 16px -7px rgba(0,0,0,0.36);
 `;
 
 const Contenedor = styled.div`

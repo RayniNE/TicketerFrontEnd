@@ -7,7 +7,19 @@ import Boton from './UI/boton';
 const Titulo = styled.h1`
     text-align: center;
     margin-top: 5rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 `;
+
+const Center = styled.div`
+
+    display: block;
+    text-align: center;
+  
+
+`;
+
+
 
 const IniciarSesion = () => {
 
@@ -38,7 +50,10 @@ const IniciarSesion = () => {
                 />
                 </Campo>
 
-                <Boton> Iniciar Sesión </Boton>
+                <Center>
+                    <Boton> Iniciar Sesión </Boton>
+                </Center>
+                
             </Formulario>
 
 
