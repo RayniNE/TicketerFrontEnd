@@ -4,6 +4,9 @@ import styled from '@emotion/styled';
 import { Formulario, Campo } from './UI/formulario';
 import Boton from './UI/boton';
 
+import logo from '../images/Logo.png';
+import bandera from '../images/Loguito.png';
+
 const Titulo = styled.h1`
     text-align: center;
     margin-top: 5rem;
@@ -19,18 +22,35 @@ const Center = styled.div`
 
 `;
 
+const Contenedor = styled.div`
+
+    display: block;
+
+    .logo{
+        left: 0;
+        width: 100px;
+    }
+
+    .bandera{
+        float: right;
+        margin-right: 15px;
+        width: 90px;
+    }
+
+`;
+
 
 
 const IniciarSesion = () => {
 
     return ( 
-        <div>
-                <Titulo 
-                    css={css`
-                        text-align: center;
-                        margin-top: 5rem;
-                    `}
-                > Iniciar Sesión </Titulo>
+        <Contenedor>
+
+                <img className="logo" src={logo} alt="logo"/> 
+
+                <img className="bandera" src={bandera} alt="bandera"/>
+
+                <Titulo> Iniciar Sesión </Titulo>
 
             <Formulario>  
 
@@ -57,7 +77,7 @@ const IniciarSesion = () => {
             </Formulario>
 
 
-        </div>
+        </Contenedor>
 
      );
 }

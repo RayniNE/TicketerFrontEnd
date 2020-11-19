@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
+
+
 const Contenedor = styled(Fragment)`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

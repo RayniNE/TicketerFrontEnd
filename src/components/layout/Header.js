@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import logo from '../../images/Loguito.png';
+
 const ContenedorPadre = styled.header`
     background-color: #FFF;
     right: 0;
@@ -23,6 +25,12 @@ const Titulo = styled.h1`
     font-weight: 700;
 `;
 
+const Imagen = styled.img`
+    margin-top: 10px;
+    margin-right: 10px;
+    height: 60px;
+`;
+
 
 const Header = () => {
 
@@ -30,6 +38,7 @@ const Header = () => {
         <ContenedorPadre>
                 <Contenedor>
                     <Titulo> Ticketer </Titulo>
+                    <Imagen src={logo}/>
                 </Contenedor>
 
         </ContenedorPadre>

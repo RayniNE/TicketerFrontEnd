@@ -1,14 +1,15 @@
 import React from 'react';
 import Layout from './layout/Layout';
 
-const CrearUsuario = () => {
+const ListadoUsuarios = () => {
 
     return ( 
-        <Layout>
-            <h1> Crear Usuario</h1>
-        </Layout>
         
+
+        <Layout>
+            <h1> Listado Usuarios </h1>
+        </Layout>
      );
 }
  
-export default CrearUsuario;
+export default ListadoUsuarios;

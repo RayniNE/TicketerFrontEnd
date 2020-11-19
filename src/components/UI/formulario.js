@@ -19,6 +19,7 @@ export const Formulario = styled.form`
 export const Campo = styled.div`
     margin-bottom: 2rem;
     align-items: center;
+    margin-left: 80px;
 
     label{
         /* flex: 0 0 150px; */
@@ -27,13 +28,17 @@ export const Campo = styled.div`
         font-family: 'Roboto', sans-serif;
         font-weight: 300;
         padding-bottom: 10px;
+        
+
     }
 
     input{
         display: block;
-        width: 100%;
+        width: 80%;
         border: none;
         border-bottom: 1px solid #000000;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
     }
 
     input,
