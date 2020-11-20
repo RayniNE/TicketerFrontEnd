@@ -4,24 +4,34 @@ import ListadoTickets from './components/listadoTickets';
 import ListadoUsuarios from './components/listadoUsuarios';
 import RutaPrivada from './components/routes/rutaPrivada';
 
+import UserState from './context/userState';
+import TicketState from './context/tickets/ticketState';
+
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
   return (
-      <Router>
 
-        <div className="app">
-          <Switch>
+    <UserState>
+      <TicketState>
+        <Router>
 
-            <Route exact path="/" component={IniciarSesion}/>
-            <RutaPrivada exact path="/home" component={ListadoTickets}/>
-            <RutaPrivada exact path="/usuarios" component={ListadoUsuarios}/>
-            <RutaPrivada exact path="/crearusuario" component={CrearUsuario}/>
+          <div className="app">
+            <Switch>
 
-          </Switch>
-        </div>
+              <Route exact path="/" component={IniciarSesion}/>
+              <RutaPrivada exact path="/home" component={ListadoTickets}/>
+              <RutaPrivada exact path="/usuarios" component={ListadoUsuarios}/>
+              <RutaPrivada exact path="/crearusuario" component={CrearUsuario}/>
 
-      </Router>
+            </Switch>
+          </div>
+
+        </Router>
+      </TicketState>
+
+    </UserState>
+
 
   );
 }
