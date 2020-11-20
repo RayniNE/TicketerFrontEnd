@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { Formulario, Campo } from './UI/formulario';
 import Boton from './UI/boton';
 
-import logo from '../images/Logo.png';
+import Logo from '../images/Logo.png';
 import bandera from '../images/Loguito.png';
 
 const Titulo = styled.h1`
@@ -46,7 +46,7 @@ const IniciarSesion = () => {
     return ( 
         <Contenedor>
 
-                <img className="logo" src={logo} alt="logo"/> 
+                <img className="logo" src={Logo} alt="logo"/> 
 
                 <img className="bandera" src={bandera} alt="bandera"/>
 

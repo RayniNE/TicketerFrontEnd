@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import logo from '../../images/Logo.png';
+import Logo from '../../images/Logo.png';
 import { Link} from 'react-router-dom';
 
 const Imagen = styled.img`
@@ -53,7 +53,7 @@ const Sidebar = () => {
 
             <SideNav>
                 <Imagen
-                    src={logo}
+                    src={Logo}
                     alt="logo"/>
 
                     <Link  to={"/home"}>
