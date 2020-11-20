@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import IniciarSesion from './components/iniciarSesion';
+import CrearUsuario from './components/crearUsuario';
+import ListadoTickets from './components/listadoTickets';
+import ListadoUsuarios from './components/listadoUsuarios';
+import RutaPrivada from './components/routes/rutaPrivada';
+
+import UserState from './context/userState';
+import TicketState from './context/tickets/ticketState';
+
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <UserState>
+      <TicketState>
+        <Router>
+
+          <div className="app">
+            <Switch>
+
+              <Route exact path="/" component={IniciarSesion}/>
+              <RutaPrivada exact path="/home" component={ListadoTickets}/>
+              <RutaPrivada exact path="/usuarios" component={ListadoUsuarios}/>
+              <RutaPrivada exact path="/crearusuario" component={CrearUsuario}/>
+
+            </Switch>
+          </div>
+
+        </Router>
+      </TicketState>
+
+    </UserState>
+
+
   );
 }
 
