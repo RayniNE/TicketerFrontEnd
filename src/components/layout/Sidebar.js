@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Logo from '../../images/Logo.png';
 import { Link} from 'react-router-dom';
 
+
 const Imagen = styled.img`
     height: 138px;
 `;
@@ -64,8 +65,12 @@ const Sidebar = () => {
                         <Boton className="btn" > Usuarios </Boton>
                     </Link>
 
+                    <Link  to={"/clientes"}>
+                        <Boton className="btn" > Clientes </Boton>
+                    </Link>
+
                     <Link  to={"/configuración"}>
-                        <Boton className="btn" > Configuración </Boton>
+                        <Boton className="btn" > Cerrar sesión </Boton>
                     </Link>
                     
                 </SideNav>

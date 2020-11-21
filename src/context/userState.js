@@ -38,6 +38,7 @@ const UserState = (props) => {
         }
         
     }
+    
 
     return (
         <UserContext.Provider
@@ -45,7 +46,7 @@ const UserState = (props) => {
                 //State
                 usuarios: state.usuarios,
                 //funciones
-                obtenerUsuarios,
+                obtenerUsuarios
             }}
         >
             {props.children}

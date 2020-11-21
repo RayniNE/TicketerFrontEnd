@@ -13,6 +13,12 @@ const Boton = styled.a`
     right: 0;
     left: 0;
 
+    a {
+        color: #007bff;
+        text-decoration: none;
+        background-color: transparent;
+    }   
+
 
     &:last-of-type{
         margin-right: 0;
