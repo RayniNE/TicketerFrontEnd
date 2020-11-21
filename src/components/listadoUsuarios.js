@@ -160,15 +160,16 @@ const ListadoUsuarios = () => {
     const pageCount = Math.ceil(usuarios.length / PER_PAGE);
 
     const searchData = (data) => {
-        if(filtrado == "filterId" && input.length > 0 && typeof parseInt(input) === "number"){
-            const info = data.filter((usuario) => usuario.id == parseInt(input));
+        if(filtrado === "filterId" && input.length > 0 && typeof parseInt(input) === "number"){
+            const info = data.filter((usuario) => usuario.id === parseInt(input));
             currentPageData = info;
             return currentPageData
         }
 
-        if(filtrado == "usuario" && input.length > 0){
-            const info = data.filter((usuario) => usuario.nombre || usuario.apellido == input);
+        if(filtrado === "user" && input.length > 0){
+            const info = data.filter((usuario) => usuario.apellido.toLowerCase().includes(input) || usuario.nombre.toLowerCase().includes(input));
             currentPageData = info;
+            console.log(input);
             return currentPageData
         }
 
