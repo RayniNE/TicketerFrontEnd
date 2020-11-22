@@ -3,8 +3,10 @@ import styled from '@emotion/styled';
 import DGA from '../../images/dga-logo.jpeg';
 import DGII from '../../images/dgii.svg';
 import presidencia from '../../images/presidencia.jpg';
-import logo from '../../images/Logo.png';
-import loguito from '../../images/Loguito.png';
+import Logo from '../../images/logo.png';
+import Loguito from '../../images/Loguito.png';
+import A2 from '../../images/norticA2.png';
+import A3 from '../../images/norticA3.png';
 
 const Contenedor = styled.div`
 
@@ -50,6 +52,13 @@ const ImagenLogos = styled.img`
 
 `;
 
+const NorticLogos = styled.img`
+
+    width: 75px;
+    margin-left: 100px;
+
+`;
+
 const ContenedorInformacion = styled.div`
     display: block;
     text-align: center;
@@ -73,8 +82,8 @@ const Footer = () => {
             </ContenedorImagenes>
 
             <ContenedorImagenesLogos>
-                <ImagenLogos src={loguito}/>
-                <ImagenLogos src={logo}/>
+                <ImagenLogos src={Loguito}/>
+                <ImagenLogos src={Logo}/>
             </ContenedorImagenesLogos>
 
             <ContenedorInformacion>
@@ -84,6 +93,21 @@ const Footer = () => {
                 <p> TEL: 829-721-7878 | INFO@TICKETER.com </p>
                 <p> TERMINOS DE USO | POLITICA DE SEGURIDAD | </p>
             </ContenedorInformacion>
+
+            <ContenedorImagenesLogos>
+                <a
+                    target="_blank"
+                    href="https://optic.gob.do/nortic/index.php/certificaciones/instituciones-certificadas/item/oficina-presidencial-de-tecnologias-de-la-informacion-y-comunicacion-optic">
+                        <NorticLogos src={A2}/>
+                </a>
+
+                <a
+                    target="_blank"
+                    href="https://optic.gob.do/nortic/index.php/certificaciones/instituciones-certificadas/item/oficina-presidencial-de-tecnologias-de-la-informacion-y-comunicacion-optic">
+                    <NorticLogos src={A3}/>
+                </a>
+
+            </ContenedorImagenesLogos>
 
         </Contenedor>
 

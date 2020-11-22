@@ -8,7 +8,7 @@ import UserContext from '../context/userContext';
 import { useHistory } from 'react-router-dom';
 
 
-import Logo from '../images/Logo.png';
+import Logo from '../images/logo.png';
 import bandera from '../images/Loguito.png';
 
 const Titulo = styled.h1`

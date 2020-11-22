@@ -1,6 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import styled from '@emotion/styled';
-import Logo from '../../images/Logo.png';
+import Logo from '../../images/logo.png';
+import Facebook from '../../images/facebook.png';
+import Twitter from '../../images/twitter.png';
+import Instagram from '../../images/instagram.png';
 import { Link } from 'react-router-dom';
 import UserContext from '../../context/userContext';
 
@@ -47,6 +50,34 @@ const Boton = styled.button`
         }
 `;
 
+const ContenedorRedesSociales = styled.div`
+
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 30px;
+
+        img:first-of-type{
+            margin-left: 35px;
+        }
+
+        p{
+            margin-left: 100px;
+        }
+
+        a{
+            :hover{
+                cursor: pointer;
+            }
+        }
+
+
+`;
+
+const RedSocial = styled.img`
+    width: 35px;
+    margin-left: 20px;
+`;
+
 const Sidebar = () => {
 
     const userContext = useContext(UserContext);
@@ -82,6 +113,25 @@ const Sidebar = () => {
                     </Link>
 
                     <Boton className="btn" onClick={() => cerrarSesion()}> Cerrar sesión </Boton>
+
+                    <ContenedorRedesSociales>
+                        <p> Redes </p>
+
+                        <a target="_blank" href="https://www.facebook.com/ticketer.magnu.1"> 
+                            <RedSocial src={Facebook} alt="facebook" />
+                        </a>
+                        
+                        <a target="_blank" href="https://twitter.com/Ticketer12">
+                            <RedSocial src={Twitter} alt="twitter"/>
+                        </a>
+
+                        <a target="_blank" href="https://www.instagram.com/ticketer_magnu/">
+                            <RedSocial src={Instagram} alt="instagram"/>
+                        </a>
+
+
+                    </ContenedorRedesSociales>
+
                     
                 </SideNav>
 
