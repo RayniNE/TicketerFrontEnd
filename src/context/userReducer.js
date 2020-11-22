@@ -33,7 +33,7 @@ export default (state, action) => {
             const item = localStorage.getItem("user");
             return{
                 ...state,
-                currentUser: item ? state.currentUser = item : [], 
+                currentUser: item ? state.currentUser = JSON.parse(item) : [], 
                 isAuth: item ? state.isAuth = true : state.isAuth = false
             }
 

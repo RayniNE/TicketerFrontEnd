@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Logo from '../../images/Logo.png';
 import { Link } from 'react-router-dom';
@@ -50,8 +50,7 @@ const Boton = styled.button`
 const Sidebar = () => {
 
     const userContext = useContext(UserContext);
-    const { cerrarSesion } = userContext;
-
+    const { currentUser, cerrarSesion } = userContext;
 
     return ( 
 
@@ -66,9 +65,11 @@ const Sidebar = () => {
                         <Boton className="btn" > Tickets </Boton>
                     </Link>
 
-                    <Link  to={"/usuarios"}>
-                        <Boton className="btn" > Usuarios </Boton>
-                    </Link>
+                    {currentUser.rolId == 1 ? (
+                        <Link  to={"/usuarios"}>
+                            <Boton className="btn" > Usuarios </Boton>
+                        </Link>
+                        ) :  null  }
 
                     <Link  to={"/clientes"}>
                         <Boton className="btn" > Clientes </Boton>
