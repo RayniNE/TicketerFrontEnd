@@ -90,7 +90,7 @@ const CrearUsuario = () => {
 
     });
 
-    const { nombre, apellido, contrasena, nombreUsuario, rolId } = newUser;
+    const { nombre, apellido, contrasena, rolId } = newUser;
 
     useEffect(() => {
 
@@ -122,7 +122,7 @@ const CrearUsuario = () => {
 
     return ( 
         <Layout>
-            <Titulo> Modificar usuario </Titulo>
+            <Titulo> Crear usuario </Titulo>
 
             <form
                 onSubmit={onSubmit}

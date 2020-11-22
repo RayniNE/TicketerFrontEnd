@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import Layout from '../layout/Layout';
+import Layout from '..//layout/Layout';
 import TicketContext from '../../context/tickets/ticketContext';
 import ReactPaginate from 'react-paginate';
-import  './styles/styles.css';
+import  '../styles/styles.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-import plus from '../images/plus.png';
+import plus from '../../images/plus.png';
 
 const Titulo = styled.h1`
 
@@ -305,7 +305,7 @@ const ListadoTickets = () => {
                                 ))}
                             </tbody>
                         </Tabla>
-                    )  : <Titulo> Cargando... </Titulo>
+                    )  : <Titulo> No hay tickets </Titulo>
                 }
 
                         <ReactPaginate

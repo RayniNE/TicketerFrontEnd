@@ -270,7 +270,7 @@ const ModificarTicket = () => {
                     <div>
                         <Boton
                             type="submit"
-                        > Agregar </Boton>
+                        > Modificar </Boton>
                     </div>
 
             </Contenedor>       

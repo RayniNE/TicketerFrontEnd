@@ -62,7 +62,7 @@ const UserState = (props) => {
             Swal.fire({
                 title: "Error",
                 text: "Se ha producido un error",
-                icon: "error",
+                icon: error,
                 confirmButtonText: "Aceptar"
 
             })

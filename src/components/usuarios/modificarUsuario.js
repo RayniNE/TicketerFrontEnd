@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Layout from './layout/Layout';
+import Layout from '../layout/Layout';
 import { useLocation, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import RolContext from '../context/roles/rolContext';
-import UserContext from '../context/userContext';
-import Boton from '../components/UI/boton';
+import RolContext from '../../context/roles/rolContext';
+import UserContext from '../../context/userContext';
+import Boton from '..//UI/boton';
 
 const Contenedor = styled.div`
 
@@ -216,7 +216,7 @@ const ModificarUsuario = () => {
                     <div>
                         <Boton
                             type="submit"
-                        > Agregar </Boton>
+                        > Modificar </Boton>
                     </div>
 
                     </Contenedor>

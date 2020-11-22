@@ -1,14 +1,14 @@
 import React, { useState, useEffect, Fragment, useContext } from 'react';
 import styled from '@emotion/styled';
-import Layout from './layout/Layout';
-import UserContext from '../context/userContext';
+import Layout from '../layout/Layout';
+import UserContext from '../../context/userContext';
 import ReactPaginate from 'react-paginate';
-import './styles/styles.css';
+import '../styles/styles.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import plus from '../images/plus.png';
+import plus from '../../images/plus.png';
 
 
 const Titulo = styled.h1`
