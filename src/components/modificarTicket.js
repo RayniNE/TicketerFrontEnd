@@ -5,8 +5,11 @@ import styled from '@emotion/styled';
 import Boton from '../components/UI/boton';
 
 import UserContext from '../context/userContext';
+import TicketContext from '../context/tickets/ticketContext';
 import ServicioContext from '../context/servicios/servicioContext';
 import PrioridadContext from '../context/prioridades/prioridadContext';
+import EstadoContext from '../context/estados/estadoContext';
+import ClienteContext from '../context/clientes/clienteContext';
 
 
 const Contenedor = styled.div`
@@ -28,6 +31,7 @@ const Contenedor = styled.div`
             height: 30px;
             font-family: 'Roboto', sans-serif;
             font-weight: 300;
+            width: 200px;
         }
 
         h3{
@@ -65,15 +69,37 @@ const Filter = styled.select`
     width: 200;
 `;
 
+
 const ModificarTicket = () => {
+
+    const history = useHistory();
+    
+    const [modifiedTicket, setModifiedTicket] = useState({
+
+        clienteId: 0,
+        usuarioId: 0,
+        servicioId: 0,
+        prioridadId: 0,
+        ticketStatusId: 0,
+        fechaCreacion: "".split('T')[0].toString()
+
+    });
+
+    const { clienteId, usuarioId, servicioId, prioridadId, ticketStatusId, fechaCreacion} = modifiedTicket;
 
     const ticket = useLocation().state;
     const userContext = useContext(UserContext);
+    const ticketContext = useContext(TicketContext);
     const servicioContext = useContext(ServicioContext);
     const prioridadContext = useContext(PrioridadContext);
+    const estadoContext = useContext(EstadoContext);
+    const clienteContext = useContext(ClienteContext);
     const { usuarios, obtenerUsuarios } = userContext;
+    const { modificarTicket } = ticketContext;
     const { servicios, obtenerServicios } = servicioContext;
     const { prioridades, obtenerPrioridades } = prioridadContext;
+    const { estados, obtenerEstados } = estadoContext;
+    const { clientes, obtenerClientes } = clienteContext;
 
     useEffect(() => {
 
@@ -81,30 +107,83 @@ const ModificarTicket = () => {
             obtenerUsuarios();
             obtenerServicios();
             obtenerPrioridades();
+            obtenerEstados();
+            obtenerClientes();
+            obtenerDatosTicket();
         }
 
 
         obtenerDatos();
-    }, [])
+    }, []);
+
+    const obtenerDatosTicket = () => {
+        setModifiedTicket({
+            clienteId: ticket.clienteId,
+            usuarioId: ticket.usuarioId,
+            servicioId: ticket.servicioId,
+            prioridadId: ticket.prioridadId,
+            ticketStatusId: ticket.ticketStatusId,
+            fechaCreacion: ticket.fechaCreacion.split('T')[0].toString()
+        })
+    }
+    const onChange = (e) => {
+        setModifiedTicket({
+            ...modifiedTicket,
+            [e.target.name] : e.target.value,
+
+        });
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        if(clienteId < 1 || usuarioId < 1|| servicioId < 1 || prioridadId < 1 || ticketStatusId < 1 || fechaCreacion.trim() === ""){
+ 
+            console.log("Error al modificar");
+        }
+        modificarTicket(modifiedTicket, ticket.id);
+        // console.log(modifiedTicket);
+        history.push('/tickets');
+        // console.log(ticket);
+
+    }
 
 
     return ( 
         <Layout>
             <Titulo> Modificar Ticket </Titulo>
 
+            <form
+                onSubmit={onSubmit}
+            >
+                
             <Contenedor>
                 <div>
                     <h3> Solicitado por </h3>
-                    <Filter>
-                        <option>  </option>
+                    <Filter
+                        onChange={onChange}
+                        name="clienteId"
+                        value={clienteId}
+                    >
+                    {clientes ? clientes.map(cliente => (
+                            <option key={cliente.id} value={cliente.id}> {cliente.nombre} {cliente.apellido}</option>
+                        )) :
+
+                        <option> No hay clientes</option>
+                            
+                    }
                     </Filter>
                 </div>
 
                 <div>
                     <h3> Usuario </h3>
-                    <Filter>
+                    <Filter
+                        onChange={onChange}
+                        name="usuarioId"
+                        value={parseInt(usuarioId)}
+                    >
                         {usuarios ? usuarios.map(usuario => (
-                            <option key={usuario.id} value={usuario.id}> {usuario.nombre} </option>
+                            <option key={usuario.id} value={parseInt(usuario.id)}> {usuario.nombre} {usuario.apellido}</option>
                         )) :
 
                         <option> No hay usuarios</option>
@@ -118,13 +197,17 @@ const ModificarTicket = () => {
                 
                 <div>
                     <h3> Servicio </h3>
-                    <Filter> 
+                    <Filter
+                        onChange={onChange}
+                        name="servicioId"
+                        value={servicioId}
+                    > 
 
                     {servicios ? servicios.map(servicio => (
                             <option key={servicio.id} value={servicio.id}> {servicio.nombre} </option>
                         )) :
 
-                        <option> No hay usuarios</option>
+                        <option> No hay servicios</option>
                             
                     }
 
@@ -133,13 +216,17 @@ const ModificarTicket = () => {
 
                 <div>
                     <h3> Prioridad </h3>
-                    <Filter> 
+                    <Filter
+                        onChange={onChange}
+                        name="prioridadId"
+                        value={prioridadId}
+                    > 
 
                     {prioridades ? prioridades.map(prioridad => (
                             <option key={prioridad.id} value={prioridad.id}> {prioridad.nombre} </option>
                         )) :
 
-                        <option> No hay usuarios</option>
+                        <option> No hay prioridades</option>
                             
                     }
 
@@ -151,12 +238,31 @@ const ModificarTicket = () => {
                 
                 <div>
                     <h3> Fecha </h3>
-                    <Filter> </Filter>
+                    <input
+                        type="date"
+                        onChange={onChange}
+                        name="fechaCreacion"
+                        value={fechaCreacion}
+                    />
                 </div>
 
                 <div>
                     <h3> Estado </h3>
-                    <Filter>  </Filter>
+                    <Filter
+                        onChange={onChange}
+                        name="ticketStatusId"
+                        value={parseInt(ticketStatusId)}
+                    > 
+
+                    {estados ? estados.map(estado => (
+                            <option key={estado.id} value={estado.id}> {estado.nombre} </option>
+                        )) :
+
+                        <option> No hay estados</option>
+                            
+                    }
+
+                    </Filter>
                 </div>
             </Contenedor>
 
@@ -167,7 +273,9 @@ const ModificarTicket = () => {
                         > Agregar </Boton>
                     </div>
 
-                    </Contenedor>
+            </Contenedor>       
+            </form>
+
 
 
 

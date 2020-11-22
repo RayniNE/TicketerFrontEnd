@@ -93,7 +93,7 @@ const TicketState = (props) => {
         } catch (error) {
             Swal.fire({
                 title: "Error",
-                text: "Se ha producido un error",
+                text: error,
                 icon: "error",
                 confirmButtonText: "Aceptar"
 

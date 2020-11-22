@@ -1,29 +1,28 @@
 import React, { useReducer } from 'react';
 import clienteAxios from '../../config/axios';
-import PrioridadContext from './prioridadContext';
-import PrioridadReducer from './prioridadReducer';
-import Swal from 'sweetalert2';
+import ClienteContext from './clienteContext';
+import ClienteReducer from './clienteReducer';
 
 import { 
-OBTENER_PRIORIDAD,
+OBTENER_CLIENTES,
 } from '../../types';
 
 const PrioridadState = (props) => {
     
     const initialState = {
-        prioridades: [],
+        clientes: [],
 
     };
 
     //Se crea el dispatch y el state.
-    const [state, dispatch] = useReducer(PrioridadReducer, initialState);
+    const [state, dispatch] = useReducer(ClienteReducer, initialState);
 
-    const obtenerPrioridades = async () => {
+    const obtenerClientes = async () => {
 
         try {
-            const resultado = await clienteAxios.get("/api/prioridad");
+            const resultado = await clienteAxios.get("/api/clientes");
             dispatch({
-                type: OBTENER_PRIORIDAD,
+                type: OBTENER_CLIENTES,
                 payload: resultado.data
             })
         } catch (error) {
@@ -34,17 +33,17 @@ const PrioridadState = (props) => {
 
 
     return (
-        <PrioridadContext.Provider
+        <ClienteContext.Provider
             value={{
                 //State
-                prioridades: state.prioridades,
+                clientes: state.clientes,
                 //funciones
-                obtenerPrioridades,
+                obtenerClientes,
 
             }}
         >
             {props.children}
-        </PrioridadContext.Provider>
+        </ClienteContext.Provider>
     )
 }
 

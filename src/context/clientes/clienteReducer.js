@@ -1,16 +1,14 @@
 import { 
-    OBTENER_PRIORIDAD,
-
-
+    OBTENER_CLIENTES,
 } from '../../types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
     switch(action.type){
-        case OBTENER_PRIORIDAD:
+        case OBTENER_CLIENTES:
             return{
                 ...state,
-                prioridades: action.payload
+                clientes: action.payload
             };
 
         default:

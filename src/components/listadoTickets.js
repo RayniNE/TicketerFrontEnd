@@ -144,7 +144,7 @@ const BotonAgregar = styled.img`
 const ListadoTickets = () => {
 
     const ticketContext = useContext(TicketContext);
-    const { tickets, obtenerTickets, agregarTicket, modificarTicket, eliminarTickets } = ticketContext;
+    const { tickets, obtenerTickets, agregarTicket, eliminarTickets } = ticketContext;
     const [currentPage, setCurrentPage] = useState(0);
     const [filtrado, setFiltrado] = useState("all");
     const [input, setInput] = useState("");
@@ -154,7 +154,7 @@ const ListadoTickets = () => {
 
             obtenerTickets();
 
-    }, []);
+    }, [tickets]);
 
 
     //Filter

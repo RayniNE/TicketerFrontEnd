@@ -2,9 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import Layout from './layout/Layout';
 import { useLocation, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import RolContext from '../context/roles/rolContext';
-import UserContext from '../context/userContext';
 import Boton from '../components/UI/boton';
+
+import UserContext from '../context/userContext';
+import TicketContext from '../context/tickets/ticketContext';
+import ServicioContext from '../context/servicios/servicioContext';
+import PrioridadContext from '../context/prioridades/prioridadContext';
+import EstadoContext from '../context/estados/estadoContext';
+import ClienteContext from '../context/clientes/clienteContext';
 
 const Titulo = styled.h1`
 
@@ -36,6 +41,7 @@ const Contenedor = styled.div`
             border: none;
             border-bottom: 1px solid #707070;
             height: 30px;
+            width: 200px;
             font-family: 'Roboto', sans-serif;
             font-weight: 300;
         }
@@ -71,37 +77,55 @@ const Filter = styled.select`
 
 `;
 
-const CrearUsuario = () => {
-
-    const rolContext = useContext(RolContext);
-    const { roles, obtenerRoles } = rolContext;
+const CrearTicket = () => {
 
     const userContext = useContext(UserContext);
-    const { agregarUsuario } = userContext;
+    const ticketContext = useContext(TicketContext);
+    const servicioContext = useContext(ServicioContext);
+    const prioridadContext = useContext(PrioridadContext);
+    const estadoContext = useContext(EstadoContext);
+    const clienteContext = useContext(ClienteContext);
+    const { usuarios, obtenerUsuarios } = userContext;
+    const { agregarTicket } = ticketContext;
+    const { servicios, obtenerServicios } = servicioContext;
+    const { prioridades, obtenerPrioridades } = prioridadContext;
+    const { estados, obtenerEstados } = estadoContext;
+    const { clientes, obtenerClientes } = clienteContext;
 
     const history = useHistory();
 
-    const [newUser, setNewUser] = useState({
+    const [newTicket, setNewTicket] = useState({
 
-        nombre: '',
-        apellido: '',
-        contrasena: '',
-        rolId: ''
+        clienteId: 0,
+        usuarioId: 0,
+        servicioId: 0,
+        prioridadId: 0,
+        ticketStatusId: 0,
+        fechaCreacion: "".split('T')[0].toString()
 
     });
 
-    const { nombre, apellido, contrasena, nombreUsuario, rolId } = newUser;
+    const { clienteId, usuarioId, servicioId, prioridadId, estadosId, ticketStatusId, fechaCreacion } = newTicket;
 
     useEffect(() => {
 
-        obtenerRoles();
+        const obtenerDatos = () => {
+            obtenerUsuarios();
+            obtenerServicios();
+            obtenerPrioridades();
+            obtenerEstados();
+            obtenerClientes();
+        }
+
+
+        obtenerDatos();
 
     }, []);
 
                 
     const onChange = (e) => {
-        setNewUser({
-            ...newUser,
+        setNewTicket({
+            ...newTicket,
             [e.target.name] : e.target.value,
 
         });
@@ -110,92 +134,150 @@ const CrearUsuario = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if(nombre.trim() === "" || apellido.trim() === ""  || contrasena.trim() === "" || rolId < 1){
+        if(clienteId || usuarioId < 0 || servicioId < 0 || prioridadId < 0 || estadosId < 0 || ticketStatusId < 0 || fechaCreacion.trim() === ""){
  
             console.log("Error al modificar");
         }
 
-        agregarUsuario(newUser);
-        history.push('/usuarios');
+        agregarTicket(newTicket);
+        history.push('/tickets');
 
     }
 
     return ( 
         <Layout>
-            <Titulo> Modificar usuario </Titulo>
+            <Titulo> Modificar Ticket </Titulo>
 
             <form
                 onSubmit={onSubmit}
             >
-                <Contenedor>
-                    <div>
-                        <h3> Nombre </h3>
-                        <input 
-                            type="text"
-                            name="nombre"
-                            value={nombre}
-                            onChange={onChange}
-                        />
-                    </div>
-
-                    <div>
-                        <h3> Apellido </h3>
-                        <input 
-                            type="text"
-                            name="apellido"
-                            value={apellido}
-                            onChange={onChange}
-                        />
-                    </div>
-                </Contenedor>
-
-                <Contenedor>
-                    
+                
+            <Contenedor>
                 <div>
-                    <h3> Rol </h3>
-                        <Filter
-                                onChange={onChange}
-                                name="rolId"
-                                value={rolId}
-                            >
-                                {roles.length > 0 ? roles.map((rol) => (
+                    <h3> Solicitado por </h3>
+                    <Filter
+                        onChange={onChange}
+                        name="clienteId"
+                        value={clienteId}
+                    >
 
-                                    <option value={rol.id}> {rol.nombre} </option>
+                    <option> -- Seleccione un cliente -- </option>
 
-                                ))  : (
-                                    <option> No hay opciones </option>
-                                )
-                                
-                                    
+                    {clientes ? clientes.map(cliente => (
+                            <option key={cliente.id} value={cliente.id}> {cliente.nombre} {cliente.apellido}</option>
+                        )) :
 
-                                }
+                        <option> No hay clientes</option>
+                            
+                    }
+                    </Filter>
+                </div>
 
+                <div>
+                    <h3> Usuario </h3>
+                    <Filter
+                        onChange={onChange}
+                        name="usuarioId"
+                        value={parseInt(usuarioId)}
+                    >   <option> -- Seleccione un usuario -- </option>
+                        {usuarios ? usuarios.map(usuario => (
+                            <option key={usuario.id} value={parseInt(usuario.id)}> {usuario.nombre} {usuario.apellido}</option>
+                        )) :
 
-                            </Filter>
-                    </div>
+                        <option> No hay usuarios</option>
+                            
+                    }
+                    </Filter>
+                </div>
+            </Contenedor>
 
-                    <div>
-                        <h3> Contraseña </h3>
-                        <input 
-                            type="text"
-                            name="contrasena"
-                            value={contrasena}
-                            onChange={onChange}
-                        />
-                    </div>
-                </Contenedor>
+            <Contenedor>
+                
+                <div>
+                    <h3> Servicio </h3>
+                    <Filter
+                        onChange={onChange}
+                        name="servicioId"
+                        value={servicioId}
+                    > 
 
-                    <Contenedor>
+                    <option> -- Seleccione un servicio -- </option>
+
+                    {servicios ? servicios.map(servicio => (
+                            <option key={servicio.id} value={servicio.id}> {servicio.nombre} </option>
+                        )) :
+
+                        <option> No hay servicios</option>
+                            
+                    }
+
+                    </Filter>
+                </div>
+
+                <div>
+                    <h3> Prioridad </h3>
+                    <Filter
+                        onChange={onChange}
+                        name="prioridadId"
+                        value={prioridadId}
+                    > 
+                    <option> -- Seleccione un prioridad -- </option>
+
+                    {prioridades ? prioridades.map(prioridad => (
+                            <option key={prioridad.id} value={prioridad.id}> {prioridad.nombre} </option>
+                        )) :
+
+                        <option> No hay prioridades</option>
+                            
+                    }
+
+                    </Filter>
+                </div>
+            </Contenedor>
+
+            <Contenedor>
+                
+                <div>
+                    <h3> Fecha </h3>
+                    <input
+                        type="date"
+                        onChange={onChange}
+                        name="fechaCreacion"
+                        value={fechaCreacion}
+                    />
+                </div>
+
+                <div>
+                    <h3> Estado </h3>
+                    <Filter
+                        onChange={onChange}
+                        name="ticketStatusId"
+                        value={parseInt(ticketStatusId)}
+                    > 
+                    <option> -- Seleccione un estado -- </option>
+
+                    {estados ? estados.map(estado => (
+                            <option key={estado.id} value={estado.id}> {estado.nombre} </option>
+                        )) :
+
+                        <option> No hay estados</option>
+                            
+                    }
+
+                    </Filter>
+                </div>
+            </Contenedor>
+
+            <Contenedor>
                     <div>
                         <Boton
                             type="submit"
                         > Agregar </Boton>
                     </div>
 
-                    </Contenedor>
+            </Contenedor>       
             </form>
 
-            
 
 
 
@@ -203,4 +285,4 @@ const CrearUsuario = () => {
      );
 }
  
-export default CrearUsuario;
+export default CrearTicket;
