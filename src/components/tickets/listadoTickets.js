@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import Layout from './layout/Layout';
-import TicketContext from '../context/tickets/ticketContext';
+import Layout from '../layout/Layout';
+import TicketContext from '../../context/tickets/ticketContext';
 import ReactPaginate from 'react-paginate';
 import  './styles/styles.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';

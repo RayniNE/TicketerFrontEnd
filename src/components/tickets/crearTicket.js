@@ -1,16 +1,28 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Layout from './layout/Layout';
+import Layout from '../layout/Layout';
 import { useLocation, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import Boton from '../components/UI/boton';
+import Boton from '../UI/boton';
 
-import UserContext from '../context/userContext';
-import TicketContext from '../context/tickets/ticketContext';
-import ServicioContext from '../context/servicios/servicioContext';
-import PrioridadContext from '../context/prioridades/prioridadContext';
-import EstadoContext from '../context/estados/estadoContext';
-import ClienteContext from '../context/clientes/clienteContext';
+import UserContext from '../../context/userContext';
+import TicketContext from '../../context/tickets/ticketContext';
+import ServicioContext from '../../context/servicios/servicioContext';
+import PrioridadContext from '../../context/prioridades/prioridadContext';
+import EstadoContext from '../../context/estados/estadoContext';
+import ClienteContext from '../../context/clientes/clienteContext';
 
+const Titulo = styled.h1`
+
+    /* position: absolute;
+    right: 0;
+    left: 0; */
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    /* margin-left: 50px;
+    margin-top: 20px; */
+    text-align: center;
+`;
 
 const Contenedor = styled.div`
 
@@ -29,9 +41,9 @@ const Contenedor = styled.div`
             border: none;
             border-bottom: 1px solid #707070;
             height: 30px;
+            width: 200px;
             font-family: 'Roboto', sans-serif;
             font-weight: 300;
-            width: 200px;
         }
 
         h3{
@@ -41,20 +53,11 @@ const Contenedor = styled.div`
         }
     }
 
-    
     select{
         width: 200px;
         height: 30px;
     }
 
-`;
-
-const Titulo = styled.h1`
-
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-
-    text-align: center;
 `;
 
 const Filter = styled.select`
@@ -67,14 +70,31 @@ const Filter = styled.select`
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     width: 200;
+
+    select{
+        width: 200px;
+    }
+
 `;
 
+const CrearTicket = () => {
 
-const ModificarTicket = () => {
+    const userContext = useContext(UserContext);
+    const ticketContext = useContext(TicketContext);
+    const servicioContext = useContext(ServicioContext);
+    const prioridadContext = useContext(PrioridadContext);
+    const estadoContext = useContext(EstadoContext);
+    const clienteContext = useContext(ClienteContext);
+    const { usuarios, obtenerUsuarios } = userContext;
+    const { agregarTicket } = ticketContext;
+    const { servicios, obtenerServicios } = servicioContext;
+    const { prioridades, obtenerPrioridades } = prioridadContext;
+    const { estados, obtenerEstados } = estadoContext;
+    const { clientes, obtenerClientes } = clienteContext;
 
     const history = useHistory();
-    
-    const [modifiedTicket, setModifiedTicket] = useState({
+
+    const [newTicket, setNewTicket] = useState({
 
         clienteId: 0,
         usuarioId: 0,
@@ -85,21 +105,7 @@ const ModificarTicket = () => {
 
     });
 
-    const { clienteId, usuarioId, servicioId, prioridadId, ticketStatusId, fechaCreacion} = modifiedTicket;
-
-    const ticket = useLocation().state;
-    const userContext = useContext(UserContext);
-    const ticketContext = useContext(TicketContext);
-    const servicioContext = useContext(ServicioContext);
-    const prioridadContext = useContext(PrioridadContext);
-    const estadoContext = useContext(EstadoContext);
-    const clienteContext = useContext(ClienteContext);
-    const { usuarios, obtenerUsuarios } = userContext;
-    const { modificarTicket } = ticketContext;
-    const { servicios, obtenerServicios } = servicioContext;
-    const { prioridades, obtenerPrioridades } = prioridadContext;
-    const { estados, obtenerEstados } = estadoContext;
-    const { clientes, obtenerClientes } = clienteContext;
+    const { clienteId, usuarioId, servicioId, prioridadId, estadosId, ticketStatusId, fechaCreacion } = newTicket;
 
     useEffect(() => {
 
@@ -109,26 +115,17 @@ const ModificarTicket = () => {
             obtenerPrioridades();
             obtenerEstados();
             obtenerClientes();
-            obtenerDatosTicket();
         }
 
 
         obtenerDatos();
+
     }, []);
 
-    const obtenerDatosTicket = () => {
-        setModifiedTicket({
-            clienteId: ticket.clienteId,
-            usuarioId: ticket.usuarioId,
-            servicioId: ticket.servicioId,
-            prioridadId: ticket.prioridadId,
-            ticketStatusId: ticket.ticketStatusId,
-            fechaCreacion: ticket.fechaCreacion.split('T')[0].toString()
-        })
-    }
+                
     const onChange = (e) => {
-        setModifiedTicket({
-            ...modifiedTicket,
+        setNewTicket({
+            ...newTicket,
             [e.target.name] : e.target.value,
 
         });
@@ -137,17 +134,15 @@ const ModificarTicket = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if(clienteId < 1 || usuarioId < 1|| servicioId < 1 || prioridadId < 1 || ticketStatusId < 1 || fechaCreacion.trim() === ""){
+        if(clienteId || usuarioId < 0 || servicioId < 0 || prioridadId < 0 || estadosId < 0 || ticketStatusId < 0 || fechaCreacion.trim() === ""){
  
             console.log("Error al modificar");
         }
-        modificarTicket(modifiedTicket, ticket.id);
-        // console.log(modifiedTicket);
+
+        agregarTicket(newTicket);
         history.push('/tickets');
-        // console.log(ticket);
 
     }
-
 
     return ( 
         <Layout>
@@ -165,6 +160,9 @@ const ModificarTicket = () => {
                         name="clienteId"
                         value={clienteId}
                     >
+
+                    <option> -- Seleccione un cliente -- </option>
+
                     {clientes ? clientes.map(cliente => (
                             <option key={cliente.id} value={cliente.id}> {cliente.nombre} {cliente.apellido}</option>
                         )) :
@@ -181,7 +179,7 @@ const ModificarTicket = () => {
                         onChange={onChange}
                         name="usuarioId"
                         value={parseInt(usuarioId)}
-                    >
+                    >   <option> -- Seleccione un usuario -- </option>
                         {usuarios ? usuarios.map(usuario => (
                             <option key={usuario.id} value={parseInt(usuario.id)}> {usuario.nombre} {usuario.apellido}</option>
                         )) :
@@ -203,6 +201,8 @@ const ModificarTicket = () => {
                         value={servicioId}
                     > 
 
+                    <option> -- Seleccione un servicio -- </option>
+
                     {servicios ? servicios.map(servicio => (
                             <option key={servicio.id} value={servicio.id}> {servicio.nombre} </option>
                         )) :
@@ -221,6 +221,7 @@ const ModificarTicket = () => {
                         name="prioridadId"
                         value={prioridadId}
                     > 
+                    <option> -- Seleccione un prioridad -- </option>
 
                     {prioridades ? prioridades.map(prioridad => (
                             <option key={prioridad.id} value={prioridad.id}> {prioridad.nombre} </option>
@@ -253,6 +254,7 @@ const ModificarTicket = () => {
                         name="ticketStatusId"
                         value={parseInt(ticketStatusId)}
                     > 
+                    <option> -- Seleccione un estado -- </option>
 
                     {estados ? estados.map(estado => (
                             <option key={estado.id} value={estado.id}> {estado.nombre} </option>
@@ -283,4 +285,4 @@ const ModificarTicket = () => {
      );
 }
  
-export default ModificarTicket;
+export default CrearTicket;

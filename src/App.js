@@ -1,10 +1,10 @@
 import IniciarSesion from './components/iniciarSesion';
-import CrearUsuario from './components/crearTicket';
-import ListadoTickets from './components/listadoTickets';
+import CrearUsuario from './components/tickets/crearTicket';
+import ListadoTickets from './components/tickets/listadoTickets';
 import ListadoUsuarios from './components/listadoUsuarios';
 import ModificarUsuario from './components/modificarUsuario';
-import ModificarTicket from './components/modificarTicket';
-import CrearTicket from './components/crearTicket';
+import ModificarTicket from './components/tickets/modificarTicket';
+import CrearTicket from './components/tickets/crearTicket';
 import RutaPrivada from './components/routes/rutaPrivada';
 
 import UserState from './context/userState';
