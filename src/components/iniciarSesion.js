@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 // import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Formulario, Campo } from './UI/formulario';
 import Boton from './UI/boton';
+import UserContext from '../context/userContext';
+
 
 import Logo from '../images/Logo.png';
 import bandera from '../images/Loguito.png';
@@ -18,13 +20,13 @@ const Center = styled.div`
 
     display: block;
     text-align: center;
-  
 
 `;
 
 const Contenedor = styled.div`
 
     display: block;
+    background: #f0f0f8;
 
     .logo{
         left: 0;
@@ -43,6 +45,32 @@ const Contenedor = styled.div`
 
 const IniciarSesion = () => {
 
+    const userContext = useContext(UserContext);
+    const { iniciarSesion } = userContext;
+    
+    const [currentUser, setCurrentUser] = useState({
+        nombreUsuario: '',
+        contrasena: ''
+    });
+
+    const { nombreUsuario, contrasena } = currentUser;
+
+    const onChange = (e) => {
+
+        setCurrentUser({
+            ...currentUser,
+            [e.target.name] : e.target.value
+        })
+
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        iniciarSesion(currentUser);
+    }
+
+    console.log(currentUser);
+
     return ( 
         <Contenedor>
 
@@ -52,26 +80,36 @@ const IniciarSesion = () => {
 
                 <Titulo> Iniciar Sesión </Titulo>
 
-            <Formulario>  
+            <Formulario
+                onSubmit={onSubmit}
+            >  
 
                 <Campo>
-                    <label for="usuario"> Usuario </label>
+                    <label for="nombreUsuario"> Usuario </label>
                     <input
-                    type="text"
-                    placeholder="Ingrese el usuario"
+                        type="text"
+                        placeholder="Ingrese el usuario"
+                        name="nombreUsuario"
+                        value={nombreUsuario}
+                        onChange={onChange}
                 />
                 </Campo>
 
                 <Campo>
-                    <label for="contraseña"> Contraseña </label>
+                    <label for="contrasena"> Contraseña </label>
                     <input
-                    type="password"
-                    placeholder="Ingrese la contraseña"
+                        type="password"
+                        placeholder="Ingrese la contraseña"
+                        name="contrasena"
+                        value={contrasena}
+                        onChange={onChange}
                 />
                 </Campo>
 
                 <Center>
-                    <Boton> Iniciar Sesión </Boton>
+                    <Boton
+                        type="submit"
+                    > Iniciar Sesión </Boton>
                 </Center>
                 
             </Formulario>

@@ -4,7 +4,8 @@ import { useLocation, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import RolContext from '../../context/roles/rolContext';
 import UserContext from '../../context/userContext';
-import Boton from '..//UI/boton';
+import Boton from '../UI/boton';
+import Swal from 'sweetalert2';
 
 const Contenedor = styled.div`
 
@@ -123,7 +124,15 @@ const ModificarUsuario = () => {
 
         if(nombre.trim() === "" || apellido.trim() === "" || nombreUsuario.trim() === "" || contrasena.trim() === "" || rolId < 1){
  
-            console.log("Error al modificar");
+            Swal.fire({
+                title: "Error",
+                text: "Por favor introduzca todos los campos",
+                icon: "warning",
+                confirmButtonText: "Aceptar"
+
+            });
+
+            return;
         }
         modificarUsuario(usuarioEdit, user.id);
         history.push('/usuarios');

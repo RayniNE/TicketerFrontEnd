@@ -5,6 +5,9 @@ import ListadoUsuarios from './components/usuarios/listadoUsuarios';
 import ModificarUsuario from './components/usuarios/modificarUsuario';
 import ModificarTicket from './components/tickets/modificarTicket';
 import CrearTicket from './components/tickets/crearTicket';
+import ListadoClientes from './components/clientes/listadoClientes';
+import CrearCliente from './components/clientes/crearCliente';
+import ModificarCliente from './components/clientes/modificarCliente';
 import RutaPrivada from './components/routes/rutaPrivada';
 
 import UserState from './context/userState';
@@ -30,7 +33,6 @@ function App() {
                                     
                   <Router>  
 
-                    <div className="app">
                       <Switch>
 
                         <Route exact path="/iniciarsesion" component={IniciarSesion}/>
@@ -40,8 +42,10 @@ function App() {
                         <RutaPrivada exact path="/tickets" component={ListadoTickets}/>
                         <RutaPrivada exact path="/tickets/crearticket" component={CrearTicket}/>
                         <RutaPrivada exact path="/tickets/editar/:id" component={ModificarTicket}/>
+                        <RutaPrivada exact path="/clientes" component={ListadoClientes}/>
+                        <RutaPrivada exact path="/clientes/crearcliente" component={CrearCliente}/>
+                        <RutaPrivada exact path="/clientes/editar/:id" component={ModificarCliente}/>
                       </Switch>
-                    </div>
 
                   </Router>
 

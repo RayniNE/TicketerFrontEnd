@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Layout from '../layout/Layout';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import RolContext from '../../context/roles/rolContext';
-import UserContext from '../../context/userContext';
+import ClienteContext from '../../context/clientes/clienteContext';
 import Boton from '../UI/boton';
 import Swal from 'sweetalert2';
 
@@ -48,7 +47,7 @@ const Contenedor = styled.div`
         }
     }
 
-    select{
+    select, input{
         width: 200px;
         height: 30px;
     }
@@ -72,37 +71,28 @@ const Filter = styled.select`
 
 `;
 
-const CrearUsuario = () => {
+const CrearCliente = () => {
 
-    const rolContext = useContext(RolContext);
-    const { roles, obtenerRoles } = rolContext;
 
-    const userContext = useContext(UserContext);
-    const { agregarUsuario } = userContext;
+    const clienteContext = useContext(ClienteContext);
+    const { agregarCliente } = clienteContext;
 
     const history = useHistory();
 
-    const [newUser, setNewUser] = useState({
+    const [newCliente, setNewCliente] = useState({
 
         nombre: '',
         apellido: '',
-        contrasena: '',
-        rolId: ''
+        nacimiento: ''
 
     });
 
-    const { nombre, apellido, contrasena, rolId } = newUser;
-
-    useEffect(() => {
-
-        obtenerRoles();
-            // eslint-disable-next-line
-    }, []);
+    const { nombre, apellido, nacimiento } = newCliente;
 
                 
     const onChange = (e) => {
-        setNewUser({
-            ...newUser,
+        setNewCliente({
+            ...newCliente,
             [e.target.name] : e.target.value,
 
         });
@@ -111,27 +101,26 @@ const CrearUsuario = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if(nombre.trim() === "" || apellido.trim() === ""  || contrasena.trim() === "" || rolId < 1){
- 
+        if(nombre.trim() === "" || apellido.trim() === ""  || nacimiento.trim() === ""){
             Swal.fire({
                 title: "Error",
                 text: "Por favor introduzca todos los campos",
                 icon: "warning",
                 confirmButtonText: "Aceptar"
 
-            });
-
+            })
             return;
         }
 
-        agregarUsuario(newUser);
-        history.push('/usuarios');
+        agregarCliente(newCliente);
+        history.push('/clientes');
 
     }
 
+
     return ( 
         <Layout>
-            <Titulo> Crear usuario </Titulo>
+            <Titulo> Crear cliente </Titulo>
 
             <form
                 onSubmit={onSubmit}
@@ -161,37 +150,18 @@ const CrearUsuario = () => {
                 <Contenedor>
                     
                 <div>
-                    <h3> Rol </h3>
-                        <Filter
-                                onChange={onChange}
-                                name="rolId"
-                                value={rolId}
-                            >
-                                {roles.length > 0 ? roles.map((rol) => (
-
-                                    <option value={rol.id}> {rol.nombre} </option>
-
-                                ))  : (
-                                    <option> No hay opciones </option>
-                                )
-                                
-                                    
-
-                                }
-
-
-                            </Filter>
-                    </div>
-
-                    <div>
-                        <h3> Contraseña </h3>
-                        <input 
-                            type="text"
-                            name="contrasena"
-                            value={contrasena}
+                    <h3> Fecha nacimiento </h3>
+                        <input
+                            type="date"
                             onChange={onChange}
-                        />
+                            name="nacimiento"
+                            value={nacimiento}
+                            />
+
+
+                            
                     </div>
+
                 </Contenedor>
 
                     <Contenedor>
@@ -212,4 +182,4 @@ const CrearUsuario = () => {
      );
 }
  
-export default CrearUsuario;
+export default CrearCliente;

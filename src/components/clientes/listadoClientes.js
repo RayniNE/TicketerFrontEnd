@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment, useContext } from 'react';
 import styled from '@emotion/styled';
 import Layout from '../layout/Layout';
-import UserContext from '../../context/userContext';
+import ClienteContext from '../../context/clientes/clienteContext';
 import ReactPaginate from 'react-paginate';
 import '../styles/styles.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -127,10 +127,10 @@ const BotonAgregar = styled.img`
 
 `;
 
-const ListadoUsuarios = () => {
+const ListadoClientes = () => {
 
-    const userContext = useContext(UserContext);
-    const { usuarios, obtenerUsuarios, handleDelete} = userContext;
+    const clienteContext = useContext(ClienteContext);
+    const { clientes, obtenerClientes, handleDelete} = clienteContext;
     const [currentPage, setCurrentPage] = useState(0);
     const [filtrado, setFiltrado] = useState("all");
     const [input, setInput] = useState("");
@@ -138,9 +138,9 @@ const ListadoUsuarios = () => {
 
     useEffect(() => {
 
-        obtenerUsuarios()
+        obtenerClientes()
             // eslint-disable-next-line
-    }, [usuarios]);
+    }, [clientes]);
 
         
     //Filter
@@ -168,33 +168,32 @@ const ListadoUsuarios = () => {
 
     const offset = currentPage * PER_PAGE;
 
-    let currentPageData = usuarios.slice(offset, offset + PER_PAGE);
+    let currentPageData = clientes.slice(offset, offset + PER_PAGE);
 
-    const pageCount = Math.ceil(usuarios.length / PER_PAGE);
+    const pageCount = Math.ceil(clientes.length / PER_PAGE);
 
     const searchData = (data) => {
         if(filtrado === "filterId" && input.length > 0 && typeof parseInt(input) === "number"){
-            const info = data.filter((usuario) => usuario.id === parseInt(input));
+            const info = data.filter((cliente) => cliente.id === parseInt(input.toLowerCase()));
             currentPageData = info;
             return currentPageData
         }
 
         if(filtrado === "nombre" && input.length > 0){
-            const info = data.filter((usuario) => usuario.nombre.toLowerCase().includes(input));
+            const info = data.filter((cliente) => cliente.nombre.toLowerCase().includes(input.toLowerCase()));
             currentPageData = info;
             return currentPageData
         }
 
         if(filtrado === "apellido" && input.length > 0){
-            const info = data.filter((usuario) => usuario.apellido.toLowerCase().includes(input));
+            const info = data.filter((cliente) => cliente.apellido.toLowerCase().includes(input.toLowerCase()));
             currentPageData = info;
             return currentPageData
         }
 
-        if(filtrado === "user" && input.length > 0){
-            const info = data.filter((usuario) => usuario.nombreUsuario.toLowerCase().includes(input));
+        if(filtrado === "fechaNacimiento" && input.length > 0){
+            const info = data.filter((cliente) => cliente.nacimiento.includes(input));
             currentPageData = info;
-            console.log(input);
             return currentPageData
         }
 
@@ -202,7 +201,7 @@ const ListadoUsuarios = () => {
         return currentPageData;
     }
 
-    const deleteUser = (id) => {
+    const deleteCliente = (id) => {
 
         handleDelete(id);
 
@@ -221,7 +220,7 @@ const ListadoUsuarios = () => {
                         <option value="filterId"> ID </option>
                         <option value="nombre"> Nombre </option>
                         <option value="apellido"> Apellido </option>
-                        <option value="user"> Usuario </option>
+                        <option value="fechaNacimiento"> Fecha Nacimiento </option>
                         {/* <option value="servicio"> Servicio </option> */}
                     </Filter>
 
@@ -238,8 +237,8 @@ const ListadoUsuarios = () => {
                 
                 <Fragment>
 
-                    <Titulo> Lista de Usuarios </Titulo>
-                    <Link to="/usuarios/crearusuario">
+                    <Titulo> Lista de Clientes </Titulo>
+                    <Link to="/clientes/crearcliente">
                         <BotonAgregar src={plus}/>
                     </Link>
                    
@@ -252,9 +251,7 @@ const ListadoUsuarios = () => {
                                     <th> ID </th>
                                     <th> Nombre </th>
                                     <th> Apellido </th>
-                                    <th> Usuario </th>
-                                    <th> Contraseña </th>
-                                    <th> Rol </th>
+                                    <th> Fecha nacimiento </th>
                                     <th>  </th>
 
                                 </HeadRow>
@@ -263,32 +260,30 @@ const ListadoUsuarios = () => {
 
                             <tbody>
 
-                                {searchData(currentPageData).map((usuario) => (
+                                {searchData(currentPageData).map((cliente) => (
 
                                     <Fragment>
                                                             
                                         <BodyRow
-                                            key={usuario.id}
+                                            key={cliente.id}
                                         >
 
-                                            <td> {usuario.id} </td>
-                                            <td> {usuario.nombre} </td>
-                                            <td> {usuario.apellido} </td>
-                                            <td> {usuario.nombreUsuario} </td>
-                                            <td> {usuario.contrasena} </td>
-                                            <td> {usuario.rol.nombre}</td>
+                                            <td> {cliente.id} </td>
+                                            <td> {cliente.nombre} </td>
+                                            <td> {cliente.apellido} </td>
+                                            <td> {cliente.nacimiento.split('T')[0].toString()} </td>
                                             <td> 
 
                                             <DropdownButton id="dropdown-item-button" title="•••">
                                                 <Dropdown.Item as="button"
                                                 > <Link to={
                                                     {
-                                                        pathname: "/usuarios/editar/:id",
-                                                        state: usuario
+                                                        pathname: "/clientes/editar/:id",
+                                                        state: cliente
                                                     }
                                                 }> Modificar </Link>
                                                 </Dropdown.Item>
-                                                <Dropdown.Item as="button" onClick={() => deleteUser(usuario.id)}>Eliminar</Dropdown.Item>
+                                                <Dropdown.Item as="button" onClick={() => deleteCliente(cliente.id)}>Eliminar</Dropdown.Item>
                                             </DropdownButton>
                                             </td>
 
@@ -302,7 +297,7 @@ const ListadoUsuarios = () => {
                             </tbody>
                     </Tabla>
                                     
-            )  : <Titulo> No hay usuarios </Titulo>}
+            )  : <Titulo> No hay clientes </Titulo>}
 
                         <ReactPaginate
                             previousLabel={"Anterior"}
@@ -325,4 +320,4 @@ const ListadoUsuarios = () => {
      );
 }
  
-export default ListadoUsuarios;
+export default ListadoClientes;

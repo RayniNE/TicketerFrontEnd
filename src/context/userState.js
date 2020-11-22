@@ -3,8 +3,10 @@ import clienteAxios from '../config/axios';
 import UserContext from './userContext';
 import UserReducer from './userReducer';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 import { 
+    USUARIO_LOGUEADO,
     OBTENER_USUARIOS,
     CREAR_USUARIOS,
     MODIFICAR_USUARIOS,
@@ -15,12 +17,38 @@ const UserState = (props) => {
     
     const initialState = {
         usuarios: [],
+        currentUser: [],
         isAuth: false
 
     };
 
     //Se crea el dispatch y el state.
     const [state, dispatch] = useReducer(UserReducer, initialState);
+
+    const iniciarSesion = async (currentUser) => {
+
+        const usuario = currentUser.nombreUsuario;
+        const contrasena = currentUser.contrasena;
+
+        try {
+            const resultado = await clienteAxios.get("/api/usuarios/check", {params: {
+                currentUser
+            }})
+            dispatch({
+                type: USUARIO_LOGUEADO,
+                payload: resultado.data
+            })
+        } catch (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Se ha producido un error",
+                icon: "warning",
+                confirmButtonText: "Aceptar"
+
+            })
+        }
+    }
+
 
     const obtenerUsuarios = async () => {
 
@@ -31,7 +59,13 @@ const UserState = (props) => {
                 payload: resultado.data
             })
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: "Error",
+                text: "Se ha producido un error",
+                icon: error,
+                confirmButtonText: "Aceptar"
+
+            })
         }
         
     }
@@ -156,12 +190,15 @@ const UserState = (props) => {
             value={{
                 //State
                 usuarios: state.usuarios,
+                currentUser: state.currentUser,
+                isAuth: state.isAuth,
                 //funciones
                 obtenerUsuarios,
                 modificarUsuario,
                 eliminarUsuario,
                 handleDelete,
-                agregarUsuario
+                agregarUsuario,
+                iniciarSesion
             }}
         >
             {props.children}

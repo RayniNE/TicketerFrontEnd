@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Layout from '../layout/Layout';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Boton from '../UI/boton';
+import Swal from 'sweetalert2';
 
 import UserContext from '../../context/userContext';
 import TicketContext from '../../context/tickets/ticketContext';
@@ -136,7 +137,15 @@ const CrearTicket = () => {
 
         if(clienteId || usuarioId < 0 || servicioId < 0 || prioridadId < 0 || estadosId < 0 || ticketStatusId < 0 || fechaCreacion.trim() === ""){
  
-            console.log("Error al modificar");
+            Swal.fire({
+                title: "Error",
+                text: "Por favor introduzca todos los campos",
+                icon: "warning",
+                confirmButtonText: "Aceptar"
+
+            })
+
+            return;
         }
 
         agregarTicket(newTicket);

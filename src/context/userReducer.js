@@ -1,4 +1,5 @@
 import { 
+    USUARIO_LOGUEADO,
     OBTENER_USUARIOS,
     CREAR_USUARIOS,
     MODIFICAR_USUARIOS,
@@ -9,6 +10,14 @@ import {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
     switch(action.type){
+
+        case USUARIO_LOGUEADO:
+            return{
+                ...state,
+                currentUser: action.payload,
+                isAuth: true
+            };
+
         case OBTENER_USUARIOS:
             return{
                 ...state,

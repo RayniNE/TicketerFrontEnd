@@ -197,8 +197,32 @@ const ListadoTickets = () => {
             return currentPageData
         }
  
+        if(filtrado === "cliente" && input.length > 0){
+            const info = data.filter((ticket) => ticket.cliente.apellido.toLowerCase().includes(input.toLowerCase()) || ticket.cliente.nombre.toLowerCase().includes(input.toLowerCase()));
+            currentPageData = info;
+            return currentPageData
+        }
+
         if(filtrado === "user" && input.length > 0){
-            const info = data.filter((ticket) => ticket.usuario.apellido.toLowerCase().includes(input) || ticket.usuario.nombre.toLowerCase().includes(input));
+            const info = data.filter((ticket) => ticket.usuario.apellido.toLowerCase().includes(input.toLowerCase()) || ticket.usuario.nombre.toLowerCase().includes(input.toLowerCase()));
+            currentPageData = info;
+            return currentPageData
+        }
+
+        if(filtrado === "prioridad" && input.length > 0){
+            const info = data.filter((ticket) => ticket.prioridad.nombre.toLowerCase().includes(input.toLowerCase()));
+            currentPageData = info;
+            return currentPageData
+        }
+
+        if(filtrado === "estado" && input.length > 0){
+            const info = data.filter((ticket) => ticket.ticketStatus.nombre.toLowerCase().includes(input.toLowerCase()));
+            currentPageData = info;
+            return currentPageData
+        }
+
+        if(filtrado === "fechaCreacion" && input.length > 0){
+            const info = data.filter((ticket) => ticket.fechaCreacion.includes(input));
             currentPageData = info;
             return currentPageData
         }
@@ -224,7 +248,11 @@ const ListadoTickets = () => {
                         >
                             <option value="all" selected> Todos </option>
                             <option value="filterId"> ID </option>
+                            <option value="cliente"> Cliente </option>
                             <option value="user"> Usuario </option>
+                            <option value="prioridad"> Prioridad </option>
+                            <option value="estado"> Estado </option>
+                            <option value="fechaCreacion"> Fecha Creacion </option>
                             {/* <option value="servicio"> Servicio </option> */}
                         </Filter>
 
@@ -254,7 +282,7 @@ const ListadoTickets = () => {
 
                                     <th> Solicitado por </th>
                                     <th> Ticket ID </th>
-                                    <th> Asignado </th>
+                                    <th> Usuario </th>
                                     <th> Prioridad </th>
                                     <th> Estado </th>
                                     <th> Creación </th>
@@ -273,12 +301,12 @@ const ListadoTickets = () => {
                                         <BodyRow
                                             key={ticket.id}
                                         >
-                                            <td> {ticket.cliente.nombre} </td>
+                                            <td> {ticket.cliente.nombre} {ticket.cliente.apellido} </td>
                                             <td> {ticket.id} </td>
                                             <td> {ticket.usuario.nombre} {ticket.usuario.apellido}</td>
                                             <td> {ticket.prioridad.nombre} </td>
                                             <td> {ticket.ticketStatus.nombre}</td>
-                                            <td> {ticket.fechaCreacion} </td>
+                                            <td> {ticket.fechaCreacion.split('T')[0].toString()} </td>
                                             <td> 
 
                                             {/* <MeatballMenu></MeatballMenu> */}
