@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Layout from './layout/Layout';
 import { useLocation, useHistory } from 'react-router-dom';
-import UserContext from '../context/userContext';
-import ServicioContext from '../context/servicios/servicioContext';
 import styled from '@emotion/styled';
 import Boton from '../components/UI/boton';
+
+import UserContext from '../context/userContext';
+import ServicioContext from '../context/servicios/servicioContext';
+import PrioridadContext from '../context/prioridades/prioridadContext';
 
 
 const Contenedor = styled.div`
@@ -68,14 +70,17 @@ const ModificarTicket = () => {
     const ticket = useLocation().state;
     const userContext = useContext(UserContext);
     const servicioContext = useContext(ServicioContext);
+    const prioridadContext = useContext(PrioridadContext);
     const { usuarios, obtenerUsuarios } = userContext;
     const { servicios, obtenerServicios } = servicioContext;
+    const { prioridades, obtenerPrioridades } = prioridadContext;
 
     useEffect(() => {
 
         const obtenerDatos = () => {
             obtenerUsuarios();
             obtenerServicios();
+            obtenerPrioridades();
         }
 
 
@@ -128,7 +133,17 @@ const ModificarTicket = () => {
 
                 <div>
                     <h3> Prioridad </h3>
-                    <Filter> </Filter>
+                    <Filter> 
+
+                    {prioridades ? prioridades.map(prioridad => (
+                            <option key={prioridad.id} value={prioridad.id}> {prioridad.nombre} </option>
+                        )) :
+
+                        <option> No hay usuarios</option>
+                            
+                    }
+
+                    </Filter>
                 </div>
             </Contenedor>
 
