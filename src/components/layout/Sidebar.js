@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import Logo from '../../images/Logo.png';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import UserContext from '../../context/userContext';
 
 
 const Imagen = styled.img`
@@ -48,6 +49,10 @@ const Boton = styled.button`
 
 const Sidebar = () => {
 
+    const userContext = useContext(UserContext);
+    const { cerrarSesion } = userContext;
+
+
     return ( 
 
         <aside>
@@ -69,9 +74,7 @@ const Sidebar = () => {
                         <Boton className="btn" > Clientes </Boton>
                     </Link>
 
-                    <Link  to={"/configuración"}>
-                        <Boton className="btn" > Cerrar sesión </Boton>
-                    </Link>
+                    <Boton className="btn" onClick={() => cerrarSesion()}> Cerrar sesión </Boton>
                     
                 </SideNav>
 

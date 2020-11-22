@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect ,useState, useContext } from 'react';
 // import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Formulario, Campo } from './UI/formulario';
 import Boton from './UI/boton';
 import UserContext from '../context/userContext';
+import { useHistory } from 'react-router-dom';
 
 
 import Logo from '../images/Logo.png';
@@ -46,12 +47,14 @@ const Contenedor = styled.div`
 const IniciarSesion = () => {
 
     const userContext = useContext(UserContext);
-    const { iniciarSesion } = userContext;
+    const { iniciarSesion, isAuth } = userContext;
     
     const [currentUser, setCurrentUser] = useState({
         nombreUsuario: '',
         contrasena: ''
     });
+
+    const history = useHistory();
 
     const { nombreUsuario, contrasena } = currentUser;
 
@@ -68,8 +71,17 @@ const IniciarSesion = () => {
         e.preventDefault();
         iniciarSesion(currentUser);
     }
+    
+    useEffect(() => {
 
-    console.log(currentUser);
+        const redirect = () => {
+            if(isAuth){
+                history.push('/tickets');
+            }
+        }
+        redirect();
+    })
+    
 
     return ( 
         <Contenedor>

@@ -73,33 +73,6 @@ const BodyRow = styled.tr`
     /* border: 1px solid black; */
     /* border-radius: 20px; */
     border: 1px solid #707070;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border-radius:10px;
-    /* display: flex; */
-
-    /* div{
-        td{
-
-            font-family: 'Roboto', sans-serif;
-            font-weight: 300;
-            padding-left: 30px;
-
-        }
-    } */
-
-    /* td{
-        margin-bottom: 50px
-    } */
-
-    tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-}
-
-    tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-}
-
 `;
 
 const Filter = styled.select`

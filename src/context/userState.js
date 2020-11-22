@@ -3,10 +3,11 @@ import clienteAxios from '../config/axios';
 import UserContext from './userContext';
 import UserReducer from './userReducer';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 
 import { 
     USUARIO_LOGUEADO,
+    VERIFICAR_LOGUEO,
+    USUARIO_DESLOGUEADO,
     OBTENER_USUARIOS,
     CREAR_USUARIOS,
     MODIFICAR_USUARIOS,
@@ -25,15 +26,19 @@ const UserState = (props) => {
     //Se crea el dispatch y el state.
     const [state, dispatch] = useReducer(UserReducer, initialState);
 
-    const iniciarSesion = async (currentUser) => {
+    const getLocalStorage = () => {
 
-        const usuario = currentUser.nombreUsuario;
-        const contrasena = currentUser.contrasena;
+        dispatch({
+            type: VERIFICAR_LOGUEO,
+        })
+    }
+
+    const iniciarSesion = async (usuarioActual) => {
 
         try {
-            const resultado = await clienteAxios.get("/api/usuarios/check", {params: {
-                currentUser
-            }})
+
+            const resultado = await clienteAxios.post("/api/usuarios/check", usuarioActual);
+
             dispatch({
                 type: USUARIO_LOGUEADO,
                 payload: resultado.data
@@ -47,6 +52,14 @@ const UserState = (props) => {
 
             })
         }
+    }
+
+    const cerrarSesion = () => {
+
+        dispatch({
+            type: USUARIO_DESLOGUEADO,
+        })
+
     }
 
 
@@ -198,7 +211,9 @@ const UserState = (props) => {
                 eliminarUsuario,
                 handleDelete,
                 agregarUsuario,
-                iniciarSesion
+                iniciarSesion,
+                cerrarSesion,
+                getLocalStorage
             }}
         >
             {props.children}

@@ -1,5 +1,7 @@
 import { 
+    VERIFICAR_LOGUEO,
     USUARIO_LOGUEADO,
+    USUARIO_DESLOGUEADO,
     OBTENER_USUARIOS,
     CREAR_USUARIOS,
     MODIFICAR_USUARIOS,
@@ -12,11 +14,28 @@ export default (state, action) => {
     switch(action.type){
 
         case USUARIO_LOGUEADO:
+            localStorage.setItem("user", JSON.stringify(action.payload))
             return{
                 ...state,
                 currentUser: action.payload,
                 isAuth: true
             };
+
+        case USUARIO_DESLOGUEADO:
+            localStorage.removeItem("user");
+            return{
+                ...state,
+                currentUser: null,
+                isAuth: false
+            };
+
+        case VERIFICAR_LOGUEO:
+            const item = localStorage.getItem("user");
+            return{
+                ...state,
+                currentUser: item ? state.currentUser = item : [], 
+                isAuth: item ? state.isAuth = true : state.isAuth = false
+            }
 
         case OBTENER_USUARIOS:
             return{
