@@ -4,7 +4,7 @@ Este es un proyecto dedicado a crear una solución a la problematica del manejo 
 
 # Creadores
 
-Ariel de Jesús Fermín (ArielFJ) \
+Jesús Ariel Fermín (ArielFJ) \
 Rayni Nuñez Espino (RayniNE)
 
 
