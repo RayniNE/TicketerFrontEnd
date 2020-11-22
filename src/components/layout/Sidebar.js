@@ -57,7 +57,7 @@ const Sidebar = () => {
                     src={Logo}
                     alt="logo"/>
 
-                    <Link  to={"/home"}>
+                    <Link  to={"/tickets"}>
                         <Boton className="btn" > Tickets </Boton>
                     </Link>
 

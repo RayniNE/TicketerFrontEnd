@@ -3,10 +3,7 @@ import {
     CREAR_USUARIOS,
     MODIFICAR_USUARIOS,
     ELIMINAR_USUARIOS,
-    OBTENER_TICKETS,
-    CREAR_TICKETS,
-    MODIFICAR_TICKETS,
-    ELIMINAR_TICKETS
+
 } from '../types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -17,6 +14,12 @@ export default (state, action) => {
                 ...state,
                 usuarios: action.payload
             };
+
+        case CREAR_USUARIOS:
+            return{
+                ...state,
+                usuarios: [...state.usuarios, action.payload]
+            }
 
         case MODIFICAR_USUARIOS:
             return{

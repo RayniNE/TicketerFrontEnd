@@ -11,7 +11,7 @@ const RutaPrivada = ({component: Component, ...props}) => {
             {...props}
             render={(props) => 
                 !isAuthenticated ? (
-                    <Redirect to="/"/>
+                    <Redirect to="/iniciarsesion"/>
                 ) : (
                     <Component {...props} />
                 )

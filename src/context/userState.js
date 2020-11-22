@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
 import clienteAxios from '../config/axios';
 import UserContext from './userContext';
 import UserReducer from './userReducer';
@@ -35,6 +35,41 @@ const UserState = (props) => {
         }
         
     }
+
+    const handleCreate = () => {
+
+        Swal.fire({
+                
+            title: "Se ha agregado con exito",
+            text: "Se ha agregado con exito el usuario",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Aceptar",
+        })
+
+    }
+
+    const agregarUsuario = async (usuario) => {
+
+        try {
+            const resultado = await clienteAxios.post("/api/usuarios", usuario);
+            dispatch({
+                type: CREAR_USUARIOS,
+                payload: resultado.data
+            })
+            handleCreate();
+        } catch (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Se ha producido un error",
+                icon: "error",
+                confirmButtonText: "Aceptar"
+
+            })
+        }
+    }
+
+
     const handleUpdate = () => {
 
         Swal.fire({
@@ -58,7 +93,13 @@ const UserState = (props) => {
             handleUpdate();
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: "Error",
+                text: "Se ha producido un error",
+                icon: "error",
+                confirmButtonText: "Aceptar"
+
+            })
         }
     }
 
@@ -101,7 +142,7 @@ const UserState = (props) => {
         } catch (error) {
             Swal.fire({
                 title: "Error",
-                text: "Se ha producido un error al eliminar",
+                text: "Se ha producido un error",
                 icon: "error",
                 confirmButtonText: "Aceptar"
 
@@ -119,7 +160,8 @@ const UserState = (props) => {
                 obtenerUsuarios,
                 modificarUsuario,
                 eliminarUsuario,
-                handleDelete
+                handleDelete,
+                agregarUsuario
             }}
         >
             {props.children}

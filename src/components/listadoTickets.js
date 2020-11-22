@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Fragment, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Layout from './layout/Layout';
 import TicketContext from '../context/tickets/ticketContext';
 import ReactPaginate from 'react-paginate';
-import styles from './styles/styles.css';
+import  './styles/styles.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import plus from '../images/plus.png';
 
 const Titulo = styled.h1`
 
@@ -20,7 +21,7 @@ const Tabla = styled.table`
     margin-left: 50px;
     /* border-spacing: 0; */
     border-collapse: collapse;
-    margin-top: 80px;
+    margin-top: 40px;
     width: 90%;
     text-align: left;
 
@@ -101,19 +102,6 @@ const BodyRow = styled.tr`
 
 `;
 
-const MeatballMenu = styled.div`
-
-        :after {
-            
-            content: '•••';
-            font-size: 30px;
-        }
-
-        :hover{
-            cursor: pointer;
-        }
-`;
-
 const Filter = styled.select`
     position: absolute;
     width: 120px;
@@ -142,10 +130,21 @@ const Input = styled.input`
 
 `;
 
+const BotonAgregar = styled.img`
+
+    width: 50px;
+    margin-left: 50px;
+
+    :hover{
+        cursor: pointer;
+    }
+
+`;
+
 const ListadoTickets = () => {
 
     const ticketContext = useContext(TicketContext);
-    const { tickets, obtenerTickets } = ticketContext;
+    const { tickets, obtenerTickets, agregarTicket, modificarTicket, eliminarTickets } = ticketContext;
     const [currentPage, setCurrentPage] = useState(0);
     const [filtrado, setFiltrado] = useState("all");
     const [input, setInput] = useState("");
@@ -153,12 +152,8 @@ const ListadoTickets = () => {
 
     useEffect(() => {
 
-        const obtenerCurrentTickets = () => {
             obtenerTickets();
-            // setCurrentTickets(tickets);
-        }
-        
-        obtenerCurrentTickets();
+
     }, []);
 
 
@@ -187,7 +182,7 @@ const ListadoTickets = () => {
         setCurrentPage(selectedPage);
       }
 
-    const PER_PAGE = 1;
+    const PER_PAGE = 4;
 
     const offset = currentPage * PER_PAGE;
     // setCurrentPageData(tickets.slice(offset, offset + PER_PAGE));
@@ -210,6 +205,12 @@ const ListadoTickets = () => {
 
 
         return currentPageData;
+    }
+
+    const deleteTicket = (id) => {
+
+        eliminarTickets(id);
+
     }
 
 
@@ -237,14 +238,15 @@ const ListadoTickets = () => {
                             />
 
                         </form>
-
-            {
                 
-                searchData(currentPageData).length > 0 ? (
                 <Fragment>
 
 
                         <Titulo> Lista de Tickets </Titulo>
+                        <Link to="/tickets/crearticket">
+                            <BotonAgregar src={plus}/>
+                        </Link>
+                        {searchData(currentPageData).length > 0 ? (
                         <Tabla>
                             <thead> 
                                 
@@ -271,38 +273,7 @@ const ListadoTickets = () => {
                                         <BodyRow
                                             key={ticket.id}
                                         >
-
-                                            {/* <div>
-                                                <td> {usuario.id} </td>
-                                            </div>
-
-                                            <div>
-                                                <td> {usuario.nombre} </td>
-                                            </div>
-
-                                            <div>
-                                                <td> {usuario.apellido} </td>
-                                            </div>
-
-                                            <div>
-                                                <td> {usuario.nombreUsuario} </td>
-                                            </div>
-
-                                            <div>
-                                                <td> 12345</td>
-                                            </div>
-
-                                            <div>
-                                                <td> {usuario.rol.nombre}</td>
-                                            </div>
-
-                                            <div>
-                                            <td> 
-
-                                                <MeatballMenu></MeatballMenu>
-                                            </td>
-                                            </div> */}
-                                            <td> Lisandra Cruz </td>
+                                            <td> {ticket.cliente.nombre} </td>
                                             <td> {ticket.id} </td>
                                             <td> {ticket.usuario.nombre} {ticket.usuario.apellido}</td>
                                             <td> {ticket.prioridad.nombre} </td>
@@ -312,8 +283,16 @@ const ListadoTickets = () => {
 
                                             {/* <MeatballMenu></MeatballMenu> */}
                                             <DropdownButton id="dropdown-item-button" title="•••">
-                                                <Dropdown.Item as="button">Modificar</Dropdown.Item>
-                                                <Dropdown.Item as="button">Eliminar</Dropdown.Item>
+                                                <Link to={
+                                                    {
+                                                        pathname: "/tickets/editar/:id",
+                                                        state: ticket
+                                                    }
+                                                }>
+                                                    <Dropdown.Item as="button">Modificar</Dropdown.Item>
+                                                </Link>
+                                                
+                                                <Dropdown.Item as="button" onClick={() => deleteTicket(ticket.id)}>Eliminar</Dropdown.Item>
                                             </DropdownButton>
                                             </td>
 
@@ -326,6 +305,8 @@ const ListadoTickets = () => {
                                 ))}
                             </tbody>
                         </Tabla>
+                    )  : <Titulo> Cargando... </Titulo>
+                }
 
                         <ReactPaginate
                             previousLabel={"Anterior"}
@@ -343,8 +324,7 @@ const ListadoTickets = () => {
 
                     </Fragment>
                 
-            )  : <Titulo> Cargando... </Titulo>
-            }
+
             
 
             

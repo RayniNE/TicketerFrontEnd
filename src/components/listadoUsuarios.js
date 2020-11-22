@@ -3,11 +3,12 @@ import styled from '@emotion/styled';
 import Layout from './layout/Layout';
 import UserContext from '../context/userContext';
 import ReactPaginate from 'react-paginate';
-import styles from './styles/styles.css';
+import './styles/styles.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import plus from '../images/plus.png';
 
 
 const Titulo = styled.h1`
@@ -22,7 +23,7 @@ const Tabla = styled.table`
     /* border-spacing: 0; */
     border-collapse: collapse;
     /* border-spacing: 0 1rem; */
-    margin-top: 80px;
+    margin-top: 40px;
     width: 90%;
     text-align: left;
 
@@ -115,6 +116,17 @@ const Input = styled.input`
 
 `;
 
+const BotonAgregar = styled.img`
+
+    width: 50px;
+    margin-left: 50px;
+
+    :hover{
+        cursor: pointer;
+    }
+
+`;
+
 const ListadoUsuarios = () => {
 
     const userContext = useContext(UserContext);
@@ -146,7 +158,6 @@ const ListadoUsuarios = () => {
     const onSubmit = (e) => {
         e.preventDefault();
             
-
     }
 
     function handlePageClick({ selected: selectedPage }) {
@@ -210,13 +221,15 @@ const ListadoUsuarios = () => {
                         />
 
                     </form>
-
-            {
                 
-                searchData(currentPageData).length > 0 ? (
                 <Fragment>
 
                     <Titulo> Lista de Usuarios </Titulo>
+                    <Link to="/usuarios/crearusuario">
+                        <BotonAgregar src={plus}/>
+                    </Link>
+                   
+                    {searchData(currentPageData).length > 0 ? (
                         <Tabla>
                             <thead> 
                                 
@@ -252,7 +265,6 @@ const ListadoUsuarios = () => {
                                             <td> {usuario.rol.nombre}</td>
                                             <td> 
 
-                                            {/* <MeatballMenu></MeatballMenu> */}
                                             <DropdownButton id="dropdown-item-button" title="•••">
                                                 <Dropdown.Item as="button"
                                                 > <Link to={
@@ -260,7 +272,8 @@ const ListadoUsuarios = () => {
                                                         pathname: "/usuarios/editar/:id",
                                                         state: usuario
                                                     }
-                                                }> Modificar </Link></Dropdown.Item>
+                                                }> Modificar </Link>
+                                                </Dropdown.Item>
                                                 <Dropdown.Item as="button" onClick={() => deleteUser(usuario.id)}>Eliminar</Dropdown.Item>
                                             </DropdownButton>
                                             </td>
@@ -274,6 +287,8 @@ const ListadoUsuarios = () => {
                                 ))}
                             </tbody>
                     </Tabla>
+                                    
+            )  : <Titulo> No hay usuarios </Titulo>}
 
                         <ReactPaginate
                             previousLabel={"Anterior"}
@@ -290,9 +305,6 @@ const ListadoUsuarios = () => {
                         />
 
                 </Fragment>
-                
-            )  : <Titulo> No hay usuarios </Titulo>
-            }
 
             
         </Layout>

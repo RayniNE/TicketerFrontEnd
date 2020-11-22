@@ -4,14 +4,6 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 
 
-
-const Contenedor = styled(Fragment)`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-
-`;
-
 const Body = styled.div`
 
     float: right;
@@ -23,7 +15,7 @@ const Body = styled.div`
 const Layout = (props) => {
 
     return ( 
-        <Contenedor>
+        <Fragment>
 
             
             <div className="header">
@@ -39,7 +31,7 @@ const Layout = (props) => {
             </Body>
             
 
-        </Contenedor>
+        </Fragment>
      );
 }
  

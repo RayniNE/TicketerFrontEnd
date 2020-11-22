@@ -3,11 +3,14 @@ import CrearUsuario from './components/crearUsuario';
 import ListadoTickets from './components/listadoTickets';
 import ListadoUsuarios from './components/listadoUsuarios';
 import ModificarUsuario from './components/modificarUsuario';
+import ModificarTicket from './components/modificarTicket';
+import CrearTicket from './components/crearTicket';
 import RutaPrivada from './components/routes/rutaPrivada';
 
 import UserState from './context/userState';
 import TicketState from './context/tickets/ticketState';
 import RolState from './context/roles/rolState';
+import ServicioState from './context/servicios/servicioState';
 
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
@@ -17,21 +20,25 @@ function App() {
     <UserState>
       <TicketState>
         <RolState>
-        <Router>
+          <ServicioState>
+            <Router>  
 
-          <div className="app">
-            <Switch>
+              <div className="app">
+                <Switch>
 
-              <Route exact path="/" component={IniciarSesion}/>
-              <RutaPrivada exact path="/home" component={ListadoTickets}/>
-              <RutaPrivada exact path="/usuarios" component={ListadoUsuarios}/>
-              <RutaPrivada exact path="/crearusuario" component={CrearUsuario}/>
-              <RutaPrivada exact path="/usuarios/editar/:id" component={ModificarUsuario}/>
+                  <Route exact path="/iniciarsesion" component={IniciarSesion}/>
+                  <RutaPrivada exact path="/usuarios" component={ListadoUsuarios}/>
+                  <RutaPrivada exact path="/usuarios/crearusuario" component={CrearUsuario}/>
+                  <RutaPrivada exact path="/usuarios/editar/:id" component={ModificarUsuario}/>
+                  <RutaPrivada exact path="/tickets" component={ListadoTickets}/>
+                  <RutaPrivada exact path="/usuarios/crearticket" component={CrearTicket}/>
+                  <RutaPrivada exact path="/tickets/editar/:id" component={ModificarTicket}/>
+                </Switch>
+              </div>
 
-            </Switch>
-          </div>
+            </Router>
+          </ServicioState>
 
-          </Router>
         </RolState>
 
       </TicketState>

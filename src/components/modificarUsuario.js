@@ -34,6 +34,12 @@ const Contenedor = styled.div`
         }
     }
 
+    
+    select{
+        width: 200px;
+        height: 30px;
+    }
+
 `;
 
 const Titulo = styled.h1`

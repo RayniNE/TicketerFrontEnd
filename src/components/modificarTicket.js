@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Layout from './layout/Layout';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import UserContext from '../context/userContext';
+import ServicioContext from '../context/servicios/servicioContext';
 import styled from '@emotion/styled';
+import Boton from '../components/UI/boton';
+
 
 const Contenedor = styled.div`
 
     display: flex;
+    margin-left: 125px;
     align-items: center;
     justify-content: center;
+    margin-top: 15px;
 
     div{
         margin-left: 50px;
         margin-right: 200px;
+        margin-bottom: 50px;
 
         input{
             border: none;
@@ -27,10 +34,13 @@ const Contenedor = styled.div`
             font-weight: 300;
         }
     }
-`;
 
-const Espacio = styled.div`
-    margin-right: 50px;
+    
+    select{
+        width: 200px;
+        height: 30px;
+    }
+
 `;
 
 const Titulo = styled.h1`
@@ -41,10 +51,37 @@ const Titulo = styled.h1`
     text-align: center;
 `;
 
-const ModificarUsuario = () => {
+const Filter = styled.select`
+    text-align: center;
+    /* font-size: 10px; */
+    /* -webkit-appearance: none; */
+    /* -moz-appearance: none; */
+    /* appearance: none; */
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    width: 200;
+`;
 
-    const usuario = useLocation().state;
-    console.log(usuario);
+const ModificarTicket = () => {
+
+    const ticket = useLocation().state;
+    const userContext = useContext(UserContext);
+    const servicioContext = useContext(ServicioContext);
+    const { usuarios, obtenerUsuarios } = userContext;
+    const { servicios, obtenerServicios } = servicioContext;
+
+    useEffect(() => {
+
+        const obtenerDatos = () => {
+            obtenerUsuarios();
+            obtenerServicios();
+        }
+
+
+        obtenerDatos();
+    }, [])
+
 
     return ( 
         <Layout>
@@ -53,37 +90,45 @@ const ModificarUsuario = () => {
             <Contenedor>
                 <div>
                     <h3> Solicitado por </h3>
-                    <input 
-                        type="text"
-
-                    />
+                    <Filter>
+                        <option>  </option>
+                    </Filter>
                 </div>
 
                 <div>
                     <h3> Usuario </h3>
-                    <input 
-                        type="text"
+                    <Filter>
+                        {usuarios ? usuarios.map(usuario => (
+                            <option key={usuario.id} value={usuario.id}> {usuario.nombre} </option>
+                        )) :
 
-                    />
+                        <option> No hay usuarios</option>
+                            
+                    }
+                    </Filter>
                 </div>
             </Contenedor>
 
             <Contenedor>
                 
                 <div>
-                    <h3> Asignado </h3>
-                    <input 
-                        type="text"
+                    <h3> Servicio </h3>
+                    <Filter> 
 
-                    />
+                    {servicios ? servicios.map(servicio => (
+                            <option key={servicio.id} value={servicio.id}> {servicio.nombre} </option>
+                        )) :
+
+                        <option> No hay usuarios</option>
+                            
+                    }
+
+                    </Filter>
                 </div>
 
                 <div>
                     <h3> Prioridad </h3>
-                    <input 
-                        type="text"
-
-                    />
+                    <Filter> </Filter>
                 </div>
             </Contenedor>
 
@@ -91,20 +136,23 @@ const ModificarUsuario = () => {
                 
                 <div>
                     <h3> Fecha </h3>
-                    <input 
-                        type="text"
-
-                    />
+                    <Filter> </Filter>
                 </div>
 
                 <div>
                     <h3> Estado </h3>
-                    <input 
-                        type="text"
-
-                    />
+                    <Filter>  </Filter>
                 </div>
             </Contenedor>
+
+            <Contenedor>
+                    <div>
+                        <Boton
+                            type="submit"
+                        > Agregar </Boton>
+                    </div>
+
+                    </Contenedor>
 
 
 
@@ -112,4 +160,4 @@ const ModificarUsuario = () => {
      );
 }
  
-export default ModificarUsuario;
+export default ModificarTicket;

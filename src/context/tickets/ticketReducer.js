@@ -1,8 +1,6 @@
 import { 
 
     OBTENER_TICKETS,
-    OBTENER_TICKETS_ID,
-    OBTENER_TICKETS_USUARIO,
     CREAR_TICKETS,
     MODIFICAR_TICKETS,
     ELIMINAR_TICKETS
@@ -12,12 +10,27 @@ import {
 export default (state, action) => {
     switch(action.type){
         case OBTENER_TICKETS:
-        // case OBTENER_TICKETS_ID:
-        // case OBTENER_TICKETS_USUARIO:
             return{
                 ...state,
                 tickets: action.payload
             };
+        case CREAR_TICKETS:
+            return{
+                ...state,
+                tickets: [...state.tickets, action.payload]
+            }
+
+        case MODIFICAR_TICKETS:
+            return{
+                ...state,
+                tickets: state.tickets.map((ticket) => ticket.id === action.payload.id ? ticket = action.payload : ticket)
+            }
+
+        case ELIMINAR_TICKETS:
+            return{
+                ...state,
+                tickets: state.tickets.filter(ticket => ticket.id !== action.payload)
+            }
 
         default:
             return state;
