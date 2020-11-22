@@ -52,6 +52,8 @@ const Sidebar = () => {
     const userContext = useContext(UserContext);
     const { currentUser, cerrarSesion } = userContext;
 
+    console.log(currentUser);
+
     return ( 
 
         <aside>
@@ -65,11 +67,15 @@ const Sidebar = () => {
                         <Boton className="btn" > Tickets </Boton>
                     </Link>
 
-                    {currentUser.rolId == 1 ? (
+                    {currentUser.rolId === 1 ? (
                         <Link  to={"/usuarios"}>
                             <Boton className="btn" > Usuarios </Boton>
                         </Link>
                         ) :  null  }
+{/* 
+                        <Link  to={"/usuarios"}>
+                            <Boton className="btn" > Usuarios </Boton>
+                        </Link> */}
 
                     <Link  to={"/clientes"}>
                         <Boton className="btn" > Clientes </Boton>

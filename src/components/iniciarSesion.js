@@ -3,6 +3,7 @@ import React, { useEffect ,useState, useContext } from 'react';
 import styled from '@emotion/styled';
 import { Formulario, Campo } from './UI/formulario';
 import Boton from './UI/boton';
+import Footer from './layout/Footer';
 import UserContext from '../context/userContext';
 import { useHistory } from 'react-router-dom';
 
@@ -126,7 +127,7 @@ const IniciarSesion = () => {
                 
             </Formulario>
 
-
+            <Footer/>
         </Contenedor>
 
      );

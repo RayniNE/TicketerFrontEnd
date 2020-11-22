@@ -9,7 +9,7 @@ const RutaPrivada = ({component: Component, ...props}) => {
 
     useEffect(() => {
         getLocalStorage();
-    })
+    }, [isAuth])
 
 
     return ( 
@@ -18,7 +18,7 @@ const RutaPrivada = ({component: Component, ...props}) => {
             {...props}
             render={(props) => 
                 !isAuth ? (
-                    <Redirect to="/iniciarsesion"/>
+                    <Redirect to="/"/>
                 ) : (
                     <Component {...props} />
                 )

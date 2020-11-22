@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 
 import IniciarSesion from './components/iniciarSesion';
 import CrearUsuario from './components/usuarios/crearUsuario';
@@ -40,8 +39,7 @@ function App() {
                   <Router>  
 
                       <Switch>
-
-                        <Route exact path="/iniciarsesion" component={IniciarSesion}/>
+                        <Route exact path="/" component={IniciarSesion}/>
                         <RutaPrivada exact path="/usuarios" component={ListadoUsuarios}/>
                         <RutaPrivada exact path="/usuarios/crearusuario" component={CrearUsuario}/>
                         <RutaPrivada exact path="/usuarios/editar/:id" component={ModificarUsuario}/>
