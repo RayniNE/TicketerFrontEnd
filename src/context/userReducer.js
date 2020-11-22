@@ -17,6 +17,18 @@ export default (state, action) => {
                 ...state,
                 usuarios: action.payload
             };
+
+        case MODIFICAR_USUARIOS:
+            return{
+                ...state,
+                usuarios: state.usuarios.map((usuario) => usuario.id === action.payload.id ? usuario = action.payload : usuario)
+            }
+
+        case ELIMINAR_USUARIOS:
+            return{
+                ...state,
+                usuarios: state.usuarios.filter(usuario => usuario.id !== action.payload)
+            }
         default:
             return state;
 

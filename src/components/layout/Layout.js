@@ -16,6 +16,7 @@ const Body = styled.div`
 
     float: right;
     width: 84%; 
+    margin-left: 50px;
 
 `;
 

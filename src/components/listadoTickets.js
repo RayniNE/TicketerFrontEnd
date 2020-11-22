@@ -201,7 +201,7 @@ const ListadoTickets = () => {
             currentPageData = info;
             return currentPageData
         }
-
+ 
         if(filtrado === "user" && input.length > 0){
             const info = data.filter((ticket) => ticket.usuario.apellido.toLowerCase().includes(input) || ticket.usuario.nombre.toLowerCase().includes(input));
             currentPageData = info;
@@ -264,12 +264,12 @@ const ListadoTickets = () => {
 
                             <tbody>
 
-                                {searchData(currentPageData).map((ticket, index) => (
+                                {searchData(currentPageData).map((ticket) => (
 
                                     <Fragment>
                                                             
                                         <BodyRow
-                                            key={index}
+                                            key={ticket.id}
                                         >
 
                                             {/* <div>

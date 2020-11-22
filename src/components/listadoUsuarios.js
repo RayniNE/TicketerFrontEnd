@@ -7,6 +7,7 @@ import styles from './styles/styles.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useHistory, Link } from 'react-router-dom';
 
 
 const Titulo = styled.h1`
@@ -117,16 +118,17 @@ const Input = styled.input`
 const ListadoUsuarios = () => {
 
     const userContext = useContext(UserContext);
-    const { usuarios, obtenerUsuarios} = userContext;
+    const { usuarios, obtenerUsuarios, handleDelete} = userContext;
     const [currentPage, setCurrentPage] = useState(0);
     const [filtrado, setFiltrado] = useState("all");
     const [input, setInput] = useState("");
+
 
     useEffect(() => {
 
         obtenerUsuarios()
 
-    }, []);
+    }, [usuarios]);
 
         
     //Filter
@@ -177,30 +179,37 @@ const ListadoUsuarios = () => {
         return currentPageData;
     }
 
+    const deleteUser = (id) => {
+
+        handleDelete(id);
+
+    }
+
+
     return ( 
         
         <Layout>
 
-                        <Filter
-                            onChange={handleChange}
-                            value={filtrado}
-                        >
-                            <option value="all" selected> Todos </option>
-                            <option value="filterId"> ID </option>
-                            <option value="user"> Usuario </option>
-                            {/* <option value="servicio"> Servicio </option> */}
-                        </Filter>
+                    <Filter
+                        onChange={handleChange}
+                        value={filtrado}
+                    >
+                        <option value="all" selected> Todos </option>
+                        <option value="filterId"> ID </option>
+                        <option value="user"> Usuario </option>
+                        {/* <option value="servicio"> Servicio </option> */}
+                    </Filter>
 
-                        <form onSubmit={onSubmit}>
+                    <form onSubmit={onSubmit}>
 
-                            <Input
-                                placeholder="Escriba el id o usuario"
-                                type="text"
-                                name="input"
-                                onChange={onChange}
-                            />
+                        <Input
+                            placeholder="Escriba el id o usuario"
+                            type="text"
+                            name="input"
+                            onChange={onChange}
+                        />
 
-                        </form>
+                    </form>
 
             {
                 
@@ -231,20 +240,28 @@ const ListadoUsuarios = () => {
 
                                     <Fragment>
                                                             
-                                        <BodyRow>
+                                        <BodyRow
+                                            key={usuario.id}
+                                        >
 
                                             <td> {usuario.id} </td>
                                             <td> {usuario.nombre} </td>
                                             <td> {usuario.apellido} </td>
                                             <td> {usuario.nombreUsuario} </td>
-                                            <td> 12345 </td>
+                                            <td> {usuario.contrasena} </td>
                                             <td> {usuario.rol.nombre}</td>
                                             <td> 
 
                                             {/* <MeatballMenu></MeatballMenu> */}
                                             <DropdownButton id="dropdown-item-button" title="•••">
-                                                <Dropdown.Item as="button">Modificar</Dropdown.Item>
-                                                <Dropdown.Item as="button">Eliminar</Dropdown.Item>
+                                                <Dropdown.Item as="button"
+                                                > <Link to={
+                                                    {
+                                                        pathname: "/usuarios/editar/:id",
+                                                        state: usuario
+                                                    }
+                                                }> Modificar </Link></Dropdown.Item>
+                                                <Dropdown.Item as="button" onClick={() => deleteUser(usuario.id)}>Eliminar</Dropdown.Item>
                                             </DropdownButton>
                                             </td>
 

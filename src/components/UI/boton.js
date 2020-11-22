@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const Boton = styled.a`
+const Boton = styled.button`
     /* display: block; */
     font-family: 'Roboto', sans-serif;
     font-weight: 400;

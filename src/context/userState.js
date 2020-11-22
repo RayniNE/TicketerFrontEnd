@@ -2,16 +2,13 @@ import React, { useReducer, useState } from 'react';
 import clienteAxios from '../config/axios';
 import UserContext from './userContext';
 import UserReducer from './userReducer';
+import Swal from 'sweetalert2';
 
 import { 
     OBTENER_USUARIOS,
     CREAR_USUARIOS,
     MODIFICAR_USUARIOS,
     ELIMINAR_USUARIOS,
-    OBTENER_TICKETS,
-    CREAR_TICKETS,
-    MODIFICAR_TICKETS,
-    ELIMINAR_TICKETS
 } from '../types';
 
 const UserState = (props) => {
@@ -38,6 +35,79 @@ const UserState = (props) => {
         }
         
     }
+    const handleUpdate = () => {
+
+        Swal.fire({
+                
+            title: "Modificado con exito",
+            text: "Se ha modificado con exito el usuario",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Aceptar",
+        })
+
+    }
+
+    const modificarUsuario = async (usuario, id) => {
+        try {
+            await clienteAxios.put(`/api/usuarios/${id}`, usuario);
+            dispatch({
+                type: MODIFICAR_USUARIOS,
+                payload: usuario
+            })
+            handleUpdate();
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleDelete = (id) => {
+
+        Swal.fire({
+                
+            title: "Confirmar",
+            text: "Seguro que desea eliminar al usuario?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if(result.value){
+                eliminarUsuario(id)
+            }
+        })
+
+    }
+
+    const eliminarUsuario = async (id) => {
+
+        try {
+            await clienteAxios.delete(`/api/usuarios/${id}`);
+
+            Swal.fire(
+                'Eliminado',
+                'El cliente se ha eliminado correctamente',
+                'success'
+            )
+
+            dispatch({
+                type: ELIMINAR_USUARIOS,
+                payload: id
+            })
+  
+        } catch (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Se ha producido un error al eliminar",
+                icon: "error",
+                confirmButtonText: "Aceptar"
+
+            })
+        }
+    }
     
 
     return (
@@ -46,7 +116,10 @@ const UserState = (props) => {
                 //State
                 usuarios: state.usuarios,
                 //funciones
-                obtenerUsuarios
+                obtenerUsuarios,
+                modificarUsuario,
+                eliminarUsuario,
+                handleDelete
             }}
         >
             {props.children}
