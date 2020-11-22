@@ -114,6 +114,8 @@ const ModificarTicket = () => {
 
 
         obtenerDatos();
+
+    // eslint-disable-next-line
     }, []);
 
     const obtenerDatosTicket = () => {

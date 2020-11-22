@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Layout from '../layout/Layout';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import RolContext from '../../context/roles/rolContext';
 import UserContext from '../../context/userContext';
@@ -95,7 +95,7 @@ const CrearUsuario = () => {
     useEffect(() => {
 
         obtenerRoles();
-
+            // eslint-disable-next-line
     }, []);
 
                 

@@ -144,7 +144,7 @@ const BotonAgregar = styled.img`
 const ListadoTickets = () => {
 
     const ticketContext = useContext(TicketContext);
-    const { tickets, obtenerTickets, agregarTicket, eliminarTickets } = ticketContext;
+    const { tickets, obtenerTickets, eliminarTickets } = ticketContext;
     const [currentPage, setCurrentPage] = useState(0);
     const [filtrado, setFiltrado] = useState("all");
     const [input, setInput] = useState("");
@@ -153,7 +153,7 @@ const ListadoTickets = () => {
     useEffect(() => {
 
             obtenerTickets();
-
+            // eslint-disable-next-line
     }, [tickets]);
 
 

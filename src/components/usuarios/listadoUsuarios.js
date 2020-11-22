@@ -139,7 +139,7 @@ const ListadoUsuarios = () => {
     useEffect(() => {
 
         obtenerUsuarios()
-
+            // eslint-disable-next-line
     }, [usuarios]);
 
         

@@ -2,7 +2,6 @@ import React, { useReducer } from 'react';
 import clienteAxios from '../../config/axios';
 import PrioridadContext from './prioridadContext';
 import PrioridadReducer from './prioridadReducer';
-import Swal from 'sweetalert2';
 
 import { 
 OBTENER_PRIORIDAD,
@@ -17,6 +16,7 @@ const PrioridadState = (props) => {
 
     //Se crea el dispatch y el state.
     const [state, dispatch] = useReducer(PrioridadReducer, initialState);
+    let errorOcurrido = "";
 
     const obtenerPrioridades = async () => {
 
@@ -27,7 +27,7 @@ const PrioridadState = (props) => {
                 payload: resultado.data
             })
         } catch (error) {
-            console.log(error);
+            errorOcurrido = error;
         }
         
     }

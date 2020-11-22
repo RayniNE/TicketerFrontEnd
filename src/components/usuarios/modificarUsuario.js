@@ -106,7 +106,7 @@ const ModificarUsuario = () => {
         }
             
         obtenerInformacion();
-
+            // eslint-disable-next-line
     }, []);
 
                 
