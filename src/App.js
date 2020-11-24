@@ -1,4 +1,3 @@
-
 import IniciarSesion from './components/iniciarSesion';
 import CrearUsuario from './components/usuarios/crearUsuario';
 import ListadoTickets from './components/tickets/listadoTickets';
@@ -10,6 +9,7 @@ import ListadoClientes from './components/clientes/listadoClientes';
 import CrearCliente from './components/clientes/crearCliente';
 import ModificarCliente from './components/clientes/modificarCliente';
 import RutaPrivada from './components/routes/rutaPrivada';
+import PaginaPrincipal from './components/paginaPrincipal';
 
 import UserState from './context/userState';
 import TicketState from './context/tickets/ticketState';
@@ -19,12 +19,9 @@ import PrioridadState from './context/prioridades/prioridadState';
 import EstadoState from './context/estados/estadoState';
 import ClienteState from './context/clientes/clienteState';
 
-import UserContext from './context/userContext';
-
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
-
 
   return (
 
@@ -39,7 +36,8 @@ function App() {
                   <Router>  
 
                       <Switch>
-                        <Route exact path="/" component={IniciarSesion}/>
+                        <Route exact path="/" component={PaginaPrincipal}/>
+                        <Route exact path="/iniciarsesion" component={IniciarSesion}/>
                         <RutaPrivada exact path="/usuarios" component={ListadoUsuarios}/>
                         <RutaPrivada exact path="/usuarios/crearusuario" component={CrearUsuario}/>
                         <RutaPrivada exact path="/usuarios/editar/:id" component={ModificarUsuario}/>

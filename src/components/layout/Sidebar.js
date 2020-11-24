@@ -83,7 +83,6 @@ const Sidebar = () => {
     const userContext = useContext(UserContext);
     const { currentUser, cerrarSesion } = userContext;
 
-    console.log(currentUser);
 
     return ( 
 

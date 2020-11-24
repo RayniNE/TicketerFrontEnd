@@ -9,9 +9,10 @@ import A2 from '../../images/norticA2.png';
 import A3 from '../../images/norticA3.png';
 
 const Contenedor = styled.div`
-
+    
     width: 100%;
     background-color: #f2f2f2;
+    display: block;
 `;
 
 const ContenedorImagenes = styled.div`
@@ -62,6 +63,7 @@ const NorticLogos = styled.img`
 const ContenedorInformacion = styled.div`
     display: block;
     text-align: center;
+    width: 100%;
     p{
         font-family: 'Roboto', sans-serif;
         font-weight: 400px;

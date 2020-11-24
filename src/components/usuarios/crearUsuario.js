@@ -167,6 +167,7 @@ const CrearUsuario = () => {
                                 name="rolId"
                                 value={rolId}
                             >
+                                <option> --Elija un rol -- </option>
                                 {roles.length > 0 ? roles.map((rol) => (
 
                                     <option value={rol.id}> {rol.nombre} </option>

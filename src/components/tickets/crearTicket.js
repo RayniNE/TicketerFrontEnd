@@ -155,7 +155,7 @@ const CrearTicket = () => {
 
     return ( 
         <Layout>
-            <Titulo> Modificar Ticket </Titulo>
+            <Titulo> Crear Ticket </Titulo>
 
             <form
                 onSubmit={onSubmit}

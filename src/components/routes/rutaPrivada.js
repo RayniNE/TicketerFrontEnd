@@ -5,12 +5,13 @@ import UserContext from '../../context/userContext';
 const RutaPrivada = ({component: Component, ...props}) => {
 
     const userContext = useContext(UserContext);
-    const { isAuth, getLocalStorage } = userContext;
+    const { currentUser, getLocalStorage } = userContext;
+
+    const isAuth = localStorage.getItem("user");
 
     useEffect(() => {
         getLocalStorage();
     }, [isAuth])
-
 
     return ( 
         <Route

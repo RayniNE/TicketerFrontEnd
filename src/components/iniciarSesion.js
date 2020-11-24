@@ -76,12 +76,13 @@ const IniciarSesion = () => {
     useEffect(() => {
 
         const redirect = () => {
+
             if(isAuth){
                 history.push('/tickets');
             }
         }
         redirect();
-    })
+    }, [isAuth])
     
 
     return ( 
@@ -127,7 +128,6 @@ const IniciarSesion = () => {
                 
             </Formulario>
 
-            <Footer/>
         </Contenedor>
 
      );
