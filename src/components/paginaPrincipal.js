@@ -81,7 +81,7 @@ const TercerParrafo = styled.p`
         text-align: justify;
         padding-left: 80px;
         line-height: 30px;
-        margin-bottom: 140px;
+        margin-bottom: 150px;
 
 `;
 
