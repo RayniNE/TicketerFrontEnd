@@ -67,7 +67,7 @@ const Filter = styled.select`
     width: 200;
 `;
 
-const ModificarUsuario = () => {
+const ModificarCliente = () => {
 
     const clienteContext = useContext(ClienteContext);
     const { modificarCliente } = clienteContext;
@@ -132,7 +132,7 @@ const ModificarUsuario = () => {
 
     return ( 
         <Layout>
-            <Titulo> Crear cliente </Titulo>
+            <Titulo> Modificar cliente </Titulo>
 
                 <form
                     onSubmit={onSubmit}
@@ -180,7 +180,7 @@ const ModificarUsuario = () => {
                         <div>
                             <Boton
                                 type="submit"
-                            > Agregar </Boton>
+                            > Modificar </Boton>
                         </div>
 
                         </Contenedor>
@@ -194,4 +194,4 @@ const ModificarUsuario = () => {
      );
 }
  
-export default ModificarUsuario;
+export default ModificarCliente;

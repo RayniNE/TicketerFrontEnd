@@ -5,7 +5,7 @@ import Footer from './layout/Footer'
 import styled from '@emotion/styled';
 import callcenter from '../images/callcenter.jpg';
 import logo from '../images/logo.png';
-import Loguito from '../images/Loguito.png';
+import Loguito from '../images/frontpagelogo.png';
 import Prueba1 from '../images/prueba_1.png';
 import Prueba2 from '../images/prueba_2.png';
 import Prueba4 from '../images/Prueba_4.png';
