@@ -55,17 +55,6 @@ const Titulo = styled.h1`
     text-align: center;
 `;
 
-const Filter = styled.select`
-    text-align: center;
-    /* font-size: 10px; */
-    /* -webkit-appearance: none; */
-    /* -moz-appearance: none; */
-    /* appearance: none; */
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    width: 200;
-`;
 
 const ModificarCliente = () => {
 
@@ -95,6 +84,7 @@ const ModificarCliente = () => {
         }
 
         obtenerDatos()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
